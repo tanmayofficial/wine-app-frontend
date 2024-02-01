@@ -18,6 +18,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import AppBarComponent from "./AppBar";
 import { sidebarIcons } from "./SidebarIcons";
+import { Dialog, DialogContent, TextField, MenuItem, Button } from "@mui/material";
+import DateAdapter from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 
 const drawerWidth = 328;
 
@@ -59,6 +63,43 @@ const Sidebar = () => {
   const [exciseReportOpen, setExciseReportOpen] = useState(false);
   const [auditAndAccountsOpen, setAuditAndAccountsOpen] = useState(false);
   const [utilityOpen, setUtilityOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    contactPersons: "",
+    address: "",
+    phoneNo: "",
+    mobileNo: "",
+    openingBalance: "",
+    discount: "",
+    validUpto: null, 
+    customerType: "",
+    discountCategory: "",
+    additionalCharges: "",
+  });
+  
+
+  const handleSave = () => {
+    // Api to send data sendDataToApi(formData)
+    handleModalClose();
+  };
+  
+  const handleCancel = () => {
+    setFormData({
+      name: "",
+      contactPersons: "",
+      address: "",
+      phoneNo: "",
+      mobileNo: "",
+      openingBalance: "",
+      discount: "",
+      validUpto: null,
+      customerType: "",
+      discountCategory: "",
+      additionalCharges: "",
+    });
+    handleModalClose();
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -100,6 +141,9 @@ const Sidebar = () => {
     setUtilityOpen(!utilityOpen);
   };
 
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -132,7 +176,9 @@ const Sidebar = () => {
           {/* Adding submenu for MasterFile */}
           <ListItem disablePadding onClick={toggleMasterFile}>
             <ListItemButton>
-              <ListItemIcon>{sidebarIcons({ itemName: "Master File" })}</ListItemIcon>
+              <ListItemIcon>
+                {sidebarIcons({ itemName: "Master File" })}
+              </ListItemIcon>
               <ListItemText primary={"Master File"} />
               <ListItemIcon>
                 {masterFileOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -156,8 +202,14 @@ const Sidebar = () => {
                 "Licensee Info",
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText })}</ListItemIcon>
+                  <ListItemButton
+                    onClick={() => {
+                      setIsModalOpen(true);
+                    }}
+                  >
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -193,7 +245,9 @@ const Sidebar = () => {
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
                   <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText})}</ListItemIcon>
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -204,7 +258,9 @@ const Sidebar = () => {
           {/* Adding submenu for Sale Report */}
           <ListItem disablePadding onClick={toggleSaleReport}>
             <ListItemButton>
-              <ListItemIcon>{sidebarIcons({ itemName: "Sale Report" })}</ListItemIcon>
+              <ListItemIcon>
+                {sidebarIcons({ itemName: "Sale Report" })}
+              </ListItemIcon>
               <ListItemText primary={"Sale Report"} />
               <ListItemIcon>
                 {saleReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -232,7 +288,9 @@ const Sidebar = () => {
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
                   <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText })}</ListItemIcon>
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -243,7 +301,9 @@ const Sidebar = () => {
           {/* Adding submenu for Purchase Report */}
           <ListItem disablePadding onClick={togglePurchaseReport}>
             <ListItemButton>
-              <ListItemIcon>{sidebarIcons({ itemName: "Purchase Report" })}</ListItemIcon>
+              <ListItemIcon>
+                {sidebarIcons({ itemName: "Purchase Report" })}
+              </ListItemIcon>
               <ListItemText primary={"Purchase Report"} />
               <ListItemIcon>
                 {purchaseReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -262,7 +322,9 @@ const Sidebar = () => {
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
                   <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText })}</ListItemIcon>
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -273,7 +335,9 @@ const Sidebar = () => {
           {/* Adding submenu for Inventory Report */}
           <ListItem disablePadding onClick={toggleInventoryReport}>
             <ListItemButton>
-              <ListItemIcon>{sidebarIcons({ itemName: "Inventory Report" })}</ListItemIcon>
+              <ListItemIcon>
+                {sidebarIcons({ itemName: "Inventory Report" })}
+              </ListItemIcon>
               <ListItemText primary={"Inventory Report"} />
               <ListItemIcon>
                 {inventoryReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -296,7 +360,9 @@ const Sidebar = () => {
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
                   <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText })}</ListItemIcon>
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -307,7 +373,9 @@ const Sidebar = () => {
           {/* Adding submenu for Excise Report */}
           <ListItem disablePadding onClick={toggleExciseReport}>
             <ListItemButton>
-              <ListItemIcon>{sidebarIcons({ itemName: "Excise Report" })}</ListItemIcon>
+              <ListItemIcon>
+                {sidebarIcons({ itemName: "Excise Report" })}
+              </ListItemIcon>
               <ListItemText primary={"Excise Report"} />
               <ListItemIcon>
                 {exciseReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -335,7 +403,9 @@ const Sidebar = () => {
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
                   <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText })}</ListItemIcon>
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -346,7 +416,9 @@ const Sidebar = () => {
           {/* Adding submenu for Audit & Accounts */}
           <ListItem disablePadding onClick={toggleAuditAndAccounts}>
             <ListItemButton>
-              <ListItemIcon>{sidebarIcons({itemName: "Audit and Accounts" })}</ListItemIcon>
+              <ListItemIcon>
+                {sidebarIcons({ itemName: "Audit and Accounts" })}
+              </ListItemIcon>
               <ListItemText primary={"Audit and Accounts"} />
               <ListItemIcon>
                 {auditAndAccountsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -372,7 +444,9 @@ const Sidebar = () => {
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
                   <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText })}</ListItemIcon>
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -383,7 +457,9 @@ const Sidebar = () => {
           {/* Adding submenu for Utility */}
           <ListItem disablePadding onClick={toggleUtility}>
             <ListItemButton>
-              <ListItemIcon>{sidebarIcons({itemName: "Utility" })}</ListItemIcon>
+              <ListItemIcon>
+                {sidebarIcons({ itemName: "Utility" })}
+              </ListItemIcon>
               <ListItemText primary={"Utility"} />
               <ListItemIcon>
                 {utilityOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -405,7 +481,9 @@ const Sidebar = () => {
               ].map((subText, subIndex) => (
                 <ListItem key={subText} disablePadding>
                   <ListItemButton>
-                    <ListItemIcon>{sidebarIcons({ itemName: subText})}</ListItemIcon>
+                    <ListItemIcon>
+                      {sidebarIcons({ itemName: subText })}
+                    </ListItemIcon>
                     <ListItemText primary={subText} />
                   </ListItemButton>
                 </ListItem>
@@ -414,12 +492,136 @@ const Sidebar = () => {
           )}
         </List>
       </Drawer>
+
       <Main open={open}>
         <DrawerHeader />
         <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est.
         </Typography>
       </Main>
+
+      {/* Customer Register Modal Code */}
+      <Dialog
+        open={isModalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+        fullWidth
+        maxWidth="md"
+      >
+        <DialogContent sx={{ overflowY: "auto", maxHeight: "80vh" }}>
+          <Box sx={{ p: 4 }}>
+            <Typography variant="h5" component="div" gutterBottom>
+              Customer Information
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              Customer Details
+            </Typography>
+            <TextField
+              label="Name of Customer/Company"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Contact Persons"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Address"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+            />
+            <TextField
+              label="Phone No."
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="number"
+            />
+            <TextField
+              label="Mobile No."
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="number"
+            />
+            <TextField
+              label="Opening Balance (Rs.)"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="number"
+              inputProps={{ min: 0 }}
+            />
+            <TextField
+              label="Discount (%)"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="number"
+            />
+            <LocalizationProvider dateAdapter={DateAdapter}>
+              <DatePicker
+                label="Valid Upto"
+                inputFormat="MM/dd/yyyy"
+                value={null}
+                onChange={(newValue) => {}}
+                renderInput={(params) => <TextField {...params} fullWidth />}
+                fullWidth
+                margin="normal"
+              />
+            </LocalizationProvider>
+            <TextField
+              select
+              label="Customer Type"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              defaultValue=""
+            >
+              <MenuItem value="cash">Cash</MenuItem>
+              <MenuItem value="online">Online</MenuItem>
+            </TextField>
+            <TextField
+              select
+              label="Discount Category"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              defaultValue=""
+            >
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+            </TextField>
+            <TextField
+              label="Additional Charges (%)"
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              type="number"
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              float: "right",
+              p: 2,
+              '& button': { m: 1 }
+            }}
+          >
+            <Button color="primary" size="large" onClick={handleSave}>
+              Save
+            </Button>
+            <Button color="error" size="large" onClick={handleCancel}>
+              Cancel
+            </Button>
+          </Box>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
