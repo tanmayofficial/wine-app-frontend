@@ -41,7 +41,7 @@ import {
   FaRegFileAlt,
 } from "react-icons/fa";
 
-const drawerWidth = 240;
+const drawerWidth = 328;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -91,6 +91,13 @@ const Sidebar = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [masterFileOpen, setMasterFileOpen] = useState(false);
+  const [dataEntryOpen, setDataEntryOpen] = useState(false);
+  const [saleReportOpen, setSaleReportOpen] = useState(false);
+  const [purchaseReportOpen, setPurchaseReportOpen] = useState(false);
+  const [inventoryReportOpen, setInventoryReportOpen] = useState(false);
+  const [exciseReportOpen, setExciseReportOpen] = useState(false);
+  const [auditAndAccountsOpen, setAuditAndAccountsOpen] = useState(false); 
+  const [utilityOpen, setUtilityOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -104,9 +111,37 @@ const Sidebar = () => {
     setMasterFileOpen(!masterFileOpen);
   };
 
+  const toggleDataEntry = () => {
+    setDataEntryOpen(!dataEntryOpen);
+  };
+
+  const toggleSaleReport = () => {
+    setSaleReportOpen(!saleReportOpen);
+  };
+
+  const togglePurchaseReport = () => {
+    setPurchaseReportOpen(!purchaseReportOpen);
+  };
+
+  const toggleInventoryReport = () => {
+    setInventoryReportOpen(!inventoryReportOpen);
+  };
+
+  const toggleExciseReport = () => {
+    setExciseReportOpen(!exciseReportOpen);
+  };
+
+  const toggleAuditAndAccounts = () => {
+    setAuditAndAccountsOpen(!auditAndAccountsOpen);
+  };
+
+  const toggleUtility = () => {
+    setUtilityOpen(!utilityOpen);
+  };
+
   const getIcon = (itemName) => {
     switch (itemName) {
-      case "MasterFile":
+      case "Master File":
         return <AssignmentIcon />;
       case "Data Entry":
         return <ListAltIcon />;
@@ -118,12 +153,13 @@ const Sidebar = () => {
         return <StoreIcon />;
       case "Excise Report":
         return <AssignmentReturnedIcon />;
-      case "Audit":
+      case "Audit and Accounts":
         return <AccountBalanceIcon />;
-      case "Accounts":
-        return <AccountBalanceWalletIcon />;
-      case "Utilities":
+      // case "":
+      //   return <AccountBalanceWalletIcon />;
+      case "Utility":
         return <DesignServicesIcon />;
+      // Master File submenu icons
       case "Customer Register":
         return <FaUser />;
       case "Suppliers Register":
@@ -147,6 +183,71 @@ const Sidebar = () => {
       case "Store Info":
         return <FaRegFileAlt />;
       case "Licensee Info":
+        return <FaRegFileAlt />;
+      // Data Entry submenu icons
+      case "Sale Bill":
+        return <MonetizationOnIcon />;
+      case "Purchase Entry":
+        return <AddShoppingCartIcon />;
+      case "Stock Transfer":
+        return <StoreIcon />;
+      case "Party Payment":
+        return <AccountBalanceIcon />;
+      case "General Payment":
+        return <AccountBalanceWalletIcon />;
+      case "Customer Receipt":
+        return <FaUser />;
+      case "General Receipt":
+        return <FaRegFileAlt />;
+      case "Cash Deposit to Bank":
+        return <FaMoneyBill />;
+      case "Cash Withdrawn from Bank":
+        return <FaMoneyBill />;
+      case "Journal Entry":
+        return <FaBook />;
+      // Sale Report submenu icons
+      case "Sale Report (Summary)":
+        return <MonetizationOnIcon />;
+      case "Item Wise Sale Report":
+        return <FaBoxes />;
+      case "Daily Sale Report (DSR)":
+        return <AssignmentIcon />;
+      case "Daily Profit Report":
+        return <FaMoneyBill />;
+      case "Sale Status Report":
+        return <AccountBalanceIcon />;
+      case "Daily Item Sale Status (Category)":
+        return <FaHandHoldingUsd />;
+      case "Daily Item Sale Status (Brand)":
+        return <FaHandHoldingUsd />;
+      case "Daily Item Status":
+        return <FaBoxes />;
+      case "Customer Due Report":
+        return <FaUser />;
+      case "Salesman Report":
+        return <FaUser />;
+      case "Receipt Report":
+        return <FaRegFileAlt />;
+      case "Bill Wise Collection Report":
+        return <FaRegFileAlt />;
+      case "Dealer Sale Discount Chart":
+        return <FaListAlt />;
+      case "Customer Transaction Details":
+        return <FaUser />;
+      case "Profit on Sale":
+        return <FaMoneyBill />;
+      // Purchase Report submenu icons
+      case "Purchase Report (Summary)":
+        return <AddShoppingCartIcon />;
+      case "Item Wise Purchase Report":
+        return <FaBoxes />;
+      case "Daily Purchase Report (DPR)":
+        return <AssignmentIcon />;
+      case "Suppliers Balance Report":
+        return <AccountBalanceIcon />;
+      case "Payment Report":
+        return <AccountBalanceWalletIcon />;
+      case "Bill Wise Payment Report":
         return <FaRegFileAlt />;
       default:
         return null;
@@ -204,58 +305,289 @@ const Sidebar = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {[
-            "MasterFile",
-            "Data Entry",
-            "Sale Report",
-            "Purchase Report",
-            "Inventory Report",
-            "Excise Report",
-            "Audit",
-            "Accounts",
-            "Utilities",
-          ].map((text, index) => (
-            <div key={text}>
-              <ListItem disablePadding onClick={index === 0 ? toggleMasterFile : null}>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {getIcon(text)}
-                    {index === 0 && (masterFileOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-              {/* Adding submenu for MasterFile */}
-              {index === 0 && masterFileOpen && (
-                <List sx={{ backgroundColor: "#f0f0f0" }}>
-                  {[
-                    "Customer Register",
-                    "Suppliers Register",
-                    "LPL Setup",
-                    "Stock Register",
-                    "Item Category Register",
-                    "Item Discount Register",
-                    "Dealer Category Discount Register",
-                    "Minimum Stock Register",
-                    "Scheme Register",
-                    "Ledger Creation",
-                    "Store Info",
-                    "Licensee Info",
-                  ].map((subText, subIndex) => (
-                    <ListItem key={subText} disablePadding>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          {getIcon(subText)}
-                        </ListItemIcon>
-                        <ListItemText primary={subText} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
-              )}
-              {index === 0 && <Divider />}
-            </div>
-          ))}
+          {/* Adding submenu for MasterFile */}
+          <ListItem disablePadding onClick={toggleMasterFile}>
+            <ListItemButton>
+              <ListItemIcon>{getIcon("Master File")}</ListItemIcon>
+              <ListItemText primary={"Master File"} />
+              <ListItemIcon>
+                {masterFileOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {masterFileOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Customer Register",
+                "Suppliers Register",
+                "LPL Setup",
+                "Stock Register",
+                "Item Category Register",
+                "Item Discount Register",
+                "Dealer Category Discount Register",
+                "Minimum Stock Register",
+                "Scheme Register",
+                "Ledger Creation",
+                "Store Info",
+                "Licensee Info",
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+
+          {/* Adding submenu for Data Entry */}
+          <ListItem disablePadding onClick={toggleDataEntry}>
+            <ListItemButton>
+              <ListItemIcon>
+                <ListAltIcon />
+              </ListItemIcon>
+              <ListItemText primary="Data Entry" />
+              <ListItemIcon>
+                {dataEntryOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {dataEntryOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Sale Bill",
+                "Purchase Entry",
+                "Stock Transfer",
+                "Party Payment",
+                "General Payment",
+                "Customer Receipt",
+                "General Receipt",
+                "Cash Deposit to Bank",
+                "Cash Withdrawn from Bank",
+                "Journal Entry",
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+
+          {/* Adding submenu for Sale Report */}
+          <ListItem disablePadding onClick={toggleSaleReport}>
+            <ListItemButton>
+              <ListItemIcon>{getIcon("Sale Report")}</ListItemIcon>
+              <ListItemText primary={"Sale Report"} />
+              <ListItemIcon>
+                {saleReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {saleReportOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Sale Report (Summary)",
+                "Item Wise Sale Report",
+                "Daily Sale Report (DSR)",
+                "Daily Profit Report",
+                "Sale Status Report",
+                "Daily Item Sale Status (Category)",
+                "Daily Item Sale Status (Brand)",
+                "Daily Item Status",
+                "Customer Due Report",
+                "Salesman Report",
+                "Receipt Report",
+                "Bill Wise Collection Report",
+                "Dealer Sale Discount Chart",
+                "Customer Transaction Details",
+                "Profit on Sale",
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+
+          {/* Adding submenu for Purchase Report */}
+          <ListItem disablePadding onClick={togglePurchaseReport}>
+            <ListItemButton>
+              <ListItemIcon>{getIcon("Purchase Report")}</ListItemIcon>
+              <ListItemText primary={"Purchase Report"} />
+              <ListItemIcon>
+                {purchaseReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {purchaseReportOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Purchase Report (Summary)",
+                "Item Wise Purchase Report",
+                "Daily Purchase Report (DPR)",
+                "Suppliers Balance Report",
+                "Payment Report",
+                "Bill Wise Payment Report",
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+
+          {/* Adding submenu for Inventory Report */}
+          <ListItem disablePadding onClick={toggleInventoryReport}>
+            <ListItemButton>
+              <ListItemIcon>{getIcon("Inventory Report")}</ListItemIcon>
+              <ListItemText primary={"Inventory Report"} />
+              <ListItemIcon>
+                {inventoryReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {inventoryReportOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Transfer Report",
+                "Urgent Report",
+                "Stock Report",
+                "Godown/Showroon Ledger",
+                "FL Beer CS Ledger",
+                "Stock Statement",
+                "On Date Report",
+                "Brand/Pack Ledger By MRP Range",
+                "Item Rate Chart",
+                "Bar Code List",
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+
+          {/* Adding submenu for Excise Report */}
+          <ListItem disablePadding onClick={toggleExciseReport}>
+            <ListItemButton>
+              <ListItemIcon>{getIcon("Excise Report")}</ListItemIcon>
+              <ListItemText primary={"Excise Report"} />
+              <ListItemIcon>
+                {exciseReportOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {exciseReportOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Monthly Online Statement - Excise",
+                "Stock Statement(Pcs)",
+                "Stock Statement(All) Excise",
+                "Stock Statement-form1-excise",
+                "Category Register(All)",
+                "Category Register(Godown)",
+                "Category Register(Counter)",
+                "Brand Register(Godown)",
+                "Brand Register(All)",
+                "Brand Register(Counter)",
+                "On Date Stock Register",
+                "Daily Stock Book",
+                "Monthly Comparative Figure",
+                "Monthly Category Sales Figure",
+                "Monthly Brand Sale Figure",
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+
+          {/* Adding submenu for Audit & Accounts */}
+          <ListItem disablePadding onClick={toggleAuditAndAccounts}>
+            <ListItemButton>
+              <ListItemIcon>{getIcon("Audit and Accounts")}</ListItemIcon>
+              <ListItemText primary={"Audit and Accounts"} />
+              <ListItemIcon>
+                {auditAndAccountsOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {auditAndAccountsOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Ledger",
+                "Cash Book",
+                "Bank Book",
+                "Journal Report",
+                "Daily Sales Figure",
+                "Monthly Sales Figure",
+                "Daily Purchase Figure",
+                "Monthly Purchase Figure",
+                "Govt. Round Off, special Purposes, Tds Payment On Purchase",
+                "Fl Status",
+                "Trial Balance",
+                "Profit And Loss A/c",
+                "Balance Sheet",                
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
+
+          {/* Adding submenu for Utility */}
+          <ListItem disablePadding onClick={toggleUtility}>
+            <ListItemButton>
+              <ListItemIcon>{getIcon("Utility")}</ListItemIcon>
+              <ListItemText primary={"Utility"} />
+              <ListItemIcon>
+                {utilityOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
+          {utilityOpen && (
+            <List sx={{ backgroundColor: "#f0f0f0" }}>
+              {[
+                "Backup",
+                "Admin Panel",
+                "Stock Updation",
+                "User Control",
+                "3 Years Sale Report",
+                "Monthly MRP Wise Sale",
+                "Stock Modify",
+                "Dsr Modify",
+                "Alternate Sale",         
+              ].map((subText, subIndex) => (
+                <ListItem key={subText} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>{getIcon(subText)}</ListItemIcon>
+                    <ListItemText primary={subText} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          )}
         </List>
       </Drawer>
       <Main open={open}>
