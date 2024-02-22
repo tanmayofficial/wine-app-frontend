@@ -2,7 +2,7 @@
 
 .navbar {
     background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
-    padding: 10px;
+    padding: 16px;
 }
 
 .navbar ul {
@@ -26,7 +26,7 @@
 .navbar ul li.nav-item.dropdown .dropdown-toggle {
     color: #fff;
     text-decoration: none;
-    padding: 10px;
+    padding: 16px;
     border-radius: 4px;
     transition: background-color 0.3s;
 }
@@ -93,7 +93,7 @@
       display: flex;
       flex-direction: column;
       position: absolute;
-      top: 60px; /* Adjust according to your design */
+      top: 60px;
       left: -100%;
       width: 100%;
       background: #333;

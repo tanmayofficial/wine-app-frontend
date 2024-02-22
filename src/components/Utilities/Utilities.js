@@ -1,17 +1,17 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const ExciseReport = () => {
+const Utilities = () => {
   return (
     <Box sx={{ p: 2, width: "900px" }}>
       <Typography variant="h5" component="div" gutterBottom>
-        Excise Report
+        Utilities
       </Typography>
       <Typography variant="subtitle1" gutterBottom>
-        Excise Report Details
+        Utilities Details
       </Typography>
     </Box>
   );
 };
 
-export default ExciseReport;
+export default Utilities;
