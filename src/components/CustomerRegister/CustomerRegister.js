@@ -11,7 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-const CustomerRegister = ({ handleSave, handleCancel }) => {
+const CustomerRegister = () => {
   const [formData, setFormData] = useState({
     name: "",
     contactPersons: "",
@@ -25,6 +25,28 @@ const CustomerRegister = ({ handleSave, handleCancel }) => {
     discountCategory: "",
     additionalCharges: "",
   });
+
+  console.log("formData", formData);
+
+  const handleSave = () => {
+    // Api to send data sendDataToApi(formData)
+  };
+
+  const handleClear = () => {
+    setFormData({
+      name: "",
+      contactPersons: "",
+      address: "",
+      phoneNo: "",
+      mobileNo: "",
+      openingBalance: "",
+      discount: "",
+      validUpto: null,
+      customerType: "",
+      discountCategory: "",
+      additionalCharges: "",
+    });
+  };
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
@@ -215,20 +237,20 @@ const CustomerRegister = ({ handleSave, handleCancel }) => {
         }}
       >
         <Button
-          sx={{ marginRight: 2 }}
           color="primary"
           size="large"
+          variant="outlined"
           onClick={handleSave}
         >
           Save
         </Button>
         <Button
-          sx={{ marginRight: 2 }}
           color="error"
           size="large"
-          onClick={handleCancel}
+          variant="outlined"
+          onClick={handleClear}
         >
-          Cancel
+          Clear
         </Button>
       </Box>
     </form>

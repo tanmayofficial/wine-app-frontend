@@ -12,6 +12,7 @@ import InventoryReport from './components/InventoryReport/InventoryReport';
 import ExciseReport from './components/ExciseReport/ExciseReport';
 import AuditAndAccounts from './components/AuditAndAccounts/AuditAndAccounts';
 import Utilities from './components/Utilities/Utilities';
+import DailyStatus from './components/DailyStatus.js/DailyStatus';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
                 <Route path="/excise-report" element={<ExciseReport />} />
                 <Route path="/audit-accounts" element={<AuditAndAccounts />} />
                 <Route path="/utilities" element={<Utilities />} />
+
+                {/* Sidebar items */}
+                <Route path="/daily-status" element={<DailyStatus />} />
               </Routes>
             </div>
           </div>
