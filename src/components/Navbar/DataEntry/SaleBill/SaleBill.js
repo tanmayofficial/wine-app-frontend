@@ -1,141 +1,44 @@
-import React from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import React, { useState } from "react";
 
-const DailyStatus = () => {
-  const [value, setValue] = React.useState([
-    dayjs("2024-04-17"),
-    dayjs("2024-04-21"),
-  ]);
+const SaleBill = () => {
+    const [value, setValue] = useState([
+        dayjs("2024-04-17"),
+        dayjs("2024-04-21"),
+      ]);
 
   return (
     <form>
       <Box sx={{ p: 2, width: "900px" }}>
         <Typography variant="h5" component="div" gutterBottom>
-          Daily Status
+          Sales Entry
         </Typography>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            components={["DateRangePicker"]}
-            sx={{ marginBottom: "16px" }}
-          >
-            <DemoItem label="Pick A Date Range" component="DateRangePicker">
-              <DateRangePicker
-                value={value}
-                onChange={(newValue) => setValue(newValue)}
-              />
-            </DemoItem>
-          </DemoContainer>
-        </LocalizationProvider>
+        <Typography variant="subtitle1" gutterBottom>
+          Customer Details
+        </Typography>
+
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <TextField
-              name="PurchaseBill"
-              label="Purchase Bill Value"
+              name="customerName"
+              label="Customer Name"
               variant="outlined"
+              type="number"
               fullWidth
               className="form-field"
               value={""}
               onChange={() => {}}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <TextField
-              name="PurchaseBill"
-              label="Purchase Mrp Value"
+              name="balance"
+              label="Balance"
               variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="SaleBill"
-              label="Sale Bill Value"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="SaleBill"
-              label="Sale MRP Value"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="Discount"
-              label="Discount Amt. (₹)"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="Payment"
-              label="Payment (₹)"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="ReciptOnSale"
-              label="Recipt On Sale"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="ReciptOnDue"
-              label="Recipt On Due"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="curentStockPurchaseValue"
-              label="Curent Stock Purchase Value"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="curentStockMRPValue"
-              label="Curent Stock MRP Value"
-              variant="outlined"
+              type="number"
               fullWidth
               className="form-field"
               value={""}
@@ -143,42 +46,138 @@ const DailyStatus = () => {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <TextField
-              name="balanceSupplier"
-              label="Supplier Balance"
+              name="phoneNo"
+              label="Phone Number"
               variant="outlined"
+              type="number"
               fullWidth
               className="form-field"
               value={""}
               onChange={() => {}}
             />
           </Grid>
-          <Grid item xs={6}>
+
+          <Grid item xs={4}>
             <TextField
-              name="balanceCustomer"
-              label="Customer Balance"
+              name="type"
+              label="Type"
               variant="outlined"
+              type="number"
               fullWidth
               className="form-field"
               value={""}
               onChange={() => {}}
             />
           </Grid>
-          <Grid item xs={6}>
+
+          <Grid item xs={4}>
             <TextField
-              name="cash"
-              label="Cash"
+              name="address"
+              label="Address"
               variant="outlined"
+              type="number"
               fullWidth
               className="form-field"
               value={""}
               onChange={() => {}}
             />
           </Grid>
-          <Grid item xs={6}></Grid>
+
+          <Grid item sx={{ display: "flex", justifyContent: "center" }} xs={4}>
+            <Button fullWidth variant="outlined" onClick={() => {}}>
+              Add New Code
+            </Button>
+          </Grid>
+
+          <Grid item xs={4}>
+            <TextField
+              name="address"
+              label="Address"
+              variant="outlined"
+              type="number"
+              fullWidth
+              className="form-field"
+              value={""}
+              onChange={() => {}}
+            />
+          </Grid>
+
+          <Grid item xs={4}>
+            <TextField
+              name="newcode"
+              label="New Code"
+              variant="outlined"
+              type="number"
+              fullWidth
+              className="form-field"
+              value={""}
+              onChange={() => {}}
+            />
+          </Grid>
+
+          <Grid item xs={4}>
+            <TextField
+              name="item"
+              label="Item"
+              variant="outlined"
+              type="number"
+              fullWidth
+              className="form-field"
+              value={""}
+              onChange={() => {}}
+            />
+          </Grid>
+
+          <Grid item xs={4}>
+            <TextField
+              name="mrp"
+              label="MRP (₹)"
+              variant="outlined"
+              type="number"
+              fullWidth
+              className="form-field"
+              value={""}
+              onChange={() => {}}
+            />
+          </Grid>
+
+          <Grid item xs={4}>
+            <TextField
+              name="billno"
+              label="Bill No."
+              variant="outlined"
+              type="number"
+              fullWidth
+              className="form-field"
+              value={""}
+              onChange={() => {}}
+            />
+          </Grid>
+
+          <Grid item xs={4}>
+          <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
+            <DatePicker
+              name="billdate"
+              label="Bill Date"
+              value={""}
+              onChange={() => {}}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                />
+              )}
+              fullWidth
+            />
+            </LocalizationProvider>
+          </Grid>
         </Grid>
       </Box>
+
       <Box
         sx={{
           display: "flex",
@@ -196,6 +195,14 @@ const DailyStatus = () => {
           Save
         </Button>
         <Button
+          color="secondary"
+          size="large"
+          variant="outlined"
+          onClick={() => {}}
+        >
+          Print
+        </Button>
+        <Button
           color="error"
           size="large"
           variant="outlined"
@@ -208,4 +215,4 @@ const DailyStatus = () => {
   );
 };
 
-export default DailyStatus;
+export default SaleBill;

@@ -3,12 +3,17 @@ import { Link } from "react-router-dom";
 import "./navbar.css";
 
 const Navbar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMasterFileDropdownOpen, setIsMasterFileDropdownOpen] = useState(false);
+  const [isdataEntryDropdownOpen, setIsdataEntryDropdownOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(prevState => !prevState);
+  const toggleMasterFileDropdown = () => {
+    setIsMasterFileDropdownOpen(prevState => !prevState);
+  };
+
+  const toggleDataEntryDropdown = () => {
+    setIsdataEntryDropdownOpen(prevState => !prevState);
   };
 
   const toggleSidebar = () => {
@@ -28,10 +33,10 @@ const Navbar = () => {
           <Link to="/" className="nav-link">TDR SOFTWARES</Link>
         </li>
         <li className="nav-item dropdown">
-          <span className="dropdown-toggle nav-link" onClick={toggleDropdown}>
+          <span className="dropdown-toggle nav-link" onClick={toggleMasterFileDropdown}>
             Master File <i className="fas fa-caret-down"></i>
           </span>
-          <div className={`dropdown-content ${isDropdownOpen ? 'open' : ''}`}>
+          <div className={`dropdown-content ${isMasterFileDropdownOpen ? 'open' : ''}`}>
             <Link to="/customer-register">Customer Register</Link>
             <Link to="/suppliers-register">Suppliers Register</Link>
             <Link to="/lpl-setup">LPL Setup</Link>
@@ -46,9 +51,24 @@ const Navbar = () => {
             <Link to="/licensee-info">Licensee Info</Link>
           </div>
         </li>
-        <li className="nav-item">
-          <Link to="/data-entry" className="nav-link">Data Entry</Link>
+        <li className="nav-item dropdown">
+          <span className="dropdown-toggle nav-link" onClick={toggleDataEntryDropdown}>
+            Data Entry <i className="fas fa-caret-down"></i>
+          </span>
+          <div className={`dropdown-content ${isdataEntryDropdownOpen ? 'open' : ''}`}>
+            <Link to="/sale-bill">Sale Bill</Link>
+            <Link to="/purchase-entry">Purchase Entry</Link>
+            <Link to="/stock-transfer">Stock Transfer</Link>
+            <Link to="/party-payment">Party Payment</Link>
+            <Link to="/general-payment">General Payment</Link>
+            <Link to="/customer-receipt">Customer Receipt</Link>
+            <Link to="/general-receipt">General Receipt</Link>
+            <Link to="/cash-deposit">Cash Deposit to Bank</Link>
+            <Link to="/cash-withdrawn">Cash Withdrawn from Bank</Link>
+            <Link to="/journal-entry">Journal Entry</Link>
+          </div>
         </li>
+
         <li className="nav-item">
           <Link to="/sale-report" className="nav-link">Sale Report</Link>
         </li>
