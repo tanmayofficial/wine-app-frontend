@@ -124,11 +124,11 @@ function App() {
                   path="/previous-year-dsr"
                   element={<PreviousYearDSR />}
                 />
-                <Route path="/fl-beer-cs/ledger" element={<FLBeerCSLedger />} />
                 <Route
                   path="/fl-beer-cs/ledger-summary"
                   element={<FLBeerCSLedgerSummary />}
                 />
+                <Route path="/fl-beer-cs/ledger" element={<FLBeerCSLedger />} />
                 <Route
                   path="/category/brand-stock"
                   element={<CatBrandStock />}
