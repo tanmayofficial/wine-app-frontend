@@ -13,6 +13,7 @@ import {
   TableRow,
   Paper,
   MenuItem,
+  InputLabel,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -21,14 +22,16 @@ import dayjs from "dayjs";
 
 const PurchaseEntry = () => {
   const todaysDate = dayjs();
-  const [supplierName, setSupplierName] = useState("");
-  const [passNo, setPassNo] = useState("");
-  const [passDate, setPassDate] = useState(todaysDate);
-  const [address, setAddress] = useState("");
-  const [billNo, setBillNo] = useState("");
-  const [billDate, setBillDate] = useState(todaysDate);
-  const [stockIn, setStockIn] = useState("");
-  const [entrtyNo, setEntrtyNo] = useState("");
+  const [filterData, setFilterData] = useState({
+    supplierName: "",
+    passNo: "",
+    passDate: todaysDate,
+    address: "",
+    billNo: "",
+    billDate: todaysDate,
+    stockIn: "",
+    entrtyNo: "",
+  });
 
   const [tableData, setTableData] = useState(
     Array.from({ length: 5 }, () => ({
@@ -63,18 +66,38 @@ const PurchaseEntry = () => {
       sp: "0",
       amount: "550",
     };
+
     const newData = [...tableData];
     newData[index] = { ...newData[index], ...dummyData };
+
+    if (index === newData.length - 1) {
+      newData.push({
+        itemCode: "",
+        itemDescription: "",
+        mrp: "",
+        batch: "",
+        case: "",
+        pcs: "",
+        brk: "",
+        purRate: "",
+        btlRate: "",
+        gro: "",
+        sp: "",
+        amount: "",
+      });
+    }
     setTableData(newData);
   };
 
-  const handlePassDateChange = (selectedDate) => {
-    setPassDate(selectedDate);
-  }
+  const handleSupplierNameChange = (event, field) => {
+    
+  };
 
-  const handleBillDateChange = (selectedDate) => {
-    setBillDate(selectedDate);
-  }
+  const calculateMRPValue = (rowData) => {
+    const pcs = parseInt(rowData.pcs) || 0;
+    const mrp = parseFloat(rowData.mrp) || 0;
+    return (pcs * mrp).toFixed(2);
+  };
 
   return (
     <form>
@@ -87,7 +110,7 @@ const PurchaseEntry = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               name="supplierName"
               label="Supplier Name"
@@ -95,12 +118,12 @@ const PurchaseEntry = () => {
               type="text"
               fullWidth
               className="form-field"
-              value={supplierName}
-              onChange={(e) => setSupplierName(e.target.value)}
+              value={filterData.supplierName}
+              onChange={() => {}} //write the function
             />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               name="passNo"
               label="Pass No."
@@ -108,25 +131,26 @@ const PurchaseEntry = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={passNo}
-              onChange={(e) => setPassNo(e.target.value)}
+              value={filterData.passNo}
+              onChange={(e) => {}} //write the function
             />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
               <DatePicker
                 name="passDate"
                 label="Pass Date"
-                value={passDate}
-                sx={{}}
-                onChange={handlePassDateChange}
+                value={filterData.passDate}
+                sx={{ width: "100%" }}
+                onChange={() => {}} //write the function
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     fullWidth
                     margin="normal"
                     variant="outlined"
+                    InputProps={{ sx: { height: "100%" } }}
                   />
                 )}
                 fullWidth
@@ -134,7 +158,7 @@ const PurchaseEntry = () => {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               name="address"
               label="Address"
@@ -142,12 +166,12 @@ const PurchaseEntry = () => {
               type="text"
               fullWidth
               className="form-field"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={filterData.address}
+              onChange={(e) => {}} //write the function
             />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               name="billNo"
               label="Bill No."
@@ -155,18 +179,19 @@ const PurchaseEntry = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={billNo}
-              onChange={(e) => setBillNo(e.target.value)}
+              value={filterData.billNo}
+              onChange={(e) => {}} //write the function
             />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
               <DatePicker
                 name="billDate"
                 label="Bill Date"
-                value={billDate}
-                onChange={handleBillDateChange}
+                value={filterData.billDate}
+                sx={{ width: "100%" }}
+                onChange={() => {}} //write the function
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -180,7 +205,7 @@ const PurchaseEntry = () => {
             </LocalizationProvider>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               name="stockIn"
@@ -189,8 +214,8 @@ const PurchaseEntry = () => {
               type="text"
               fullWidth
               className="form-field"
-              value={stockIn}
-              onChange={(e) => setStockIn(e.target.value)}
+              value={filterData.stockIn}
+              onChange={(e) => {}} //write the function
             >
               <MenuItem value="item1">Item 1</MenuItem>
               <MenuItem value="item2">Item 2</MenuItem>
@@ -200,7 +225,7 @@ const PurchaseEntry = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               name="entrtyNo"
               label="Entry No."
@@ -208,29 +233,167 @@ const PurchaseEntry = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={entrtyNo}
-              onChange={(e) => setEntrtyNo(e.target.value)}
+              value={filterData.entrtyNo}
+              onChange={(e) => {}} //write the function
             />
           </Grid>
-
-          {/* <Grid item xs={3}>
-            <TextField
-              name="purchaserateonmrp"
-              label="Purchase Rate on MRP (%)"
-              variant="outlined"
-              type="number"
-              fullWidth
-              className="form-field"
-              value={""}
-              onChange={() => {}}
-            />
-          </Grid> */}
         </Grid>
 
-        <TableContainer component={Paper} sx={{ marginTop: 2 }}>
+        <Grid container spacing={2} sx={{ marginTop: "12px" }}>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>MRP Value</InputLabel>
+            <TextField
+              // label="MRP Value"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={calculateMRPValue(tableData[0])}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>S. Discount</InputLabel>
+            <TextField
+              // label="Special Discount"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Govt. Rate Off</InputLabel>
+            <TextField
+              // label="Govt. Rate Off"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Special Purposes</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Service Tax</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Tcs(%)</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Tcs Amt.</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Gross Amt.</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Discount</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Tax</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Adjustment</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <InputLabel sx={{ marginBottom: "8px" }}>Net Amount</InputLabel>
+            <TextField
+              // label="Special Purposes"
+              variant="outlined"
+              type="text"
+              size="small"
+              fullWidth
+              value={""}
+              InputProps={{ readOnly: true }}
+            />
+          </Grid>
+        </Grid>
+
+        <TableContainer
+          component={Paper}
+          sx={{ marginTop: 4, maxHeight: 300, overflowY: "auto" }}
+        >
           <Table>
             <TableHead>
               <TableRow>
+              <TableCell>S. No.</TableCell>
                 <TableCell>Item Code</TableCell>
                 <TableCell>Item Description</TableCell>
                 <TableCell>MRP</TableCell>
@@ -248,7 +411,15 @@ const PurchaseEntry = () => {
             <TableBody>
               {tableData.map((row, index) => (
                 <TableRow key={index}>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
+                    <TextField
+                      size="small"
+                      value={index + 1}
+                      // fullWidth
+                      InputProps={{ readOnly: true }}
+                    />
+                  </TableCell>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.itemCode}
@@ -259,7 +430,7 @@ const PurchaseEntry = () => {
                       // InputProps={{ readOnly: row.itemDescription !== "" }}
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "10px" }}>
                     <TextField
                       select
                       size="small"
@@ -276,7 +447,7 @@ const PurchaseEntry = () => {
                       <MenuItem value="item5">Item 5</MenuItem>
                     </TextField>
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.mrp}
@@ -286,7 +457,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.batch || ""}
@@ -296,7 +467,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.case || ""}
@@ -306,7 +477,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.pcs || ""}
@@ -316,7 +487,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.brk || ""}
@@ -326,7 +497,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.purRate || ""}
@@ -336,7 +507,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.btlRate || ""}
@@ -346,7 +517,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.gro || ""}
@@ -356,7 +527,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.sp || ""}
@@ -366,7 +537,7 @@ const PurchaseEntry = () => {
                       fullWidth
                     />
                   </TableCell>
-                  <TableCell sx={{ padding: '8px' }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.amount || ""}

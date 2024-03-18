@@ -42,6 +42,14 @@ import GtinStock from './components/Sidebar/GtinStock/GtinStock';
 import "./App.css";
 import SaleBill from './components/Navbar/DataEntry/SaleBill/SaleBill';
 import PurchaseEntry from './components/Navbar/DataEntry/PurchaseEntry/PurchaseEntry';
+import StockTransfer from './components/Navbar/DataEntry/StockTransfer/StockTransfer';
+import PartyPayment from './components/Navbar/DataEntry/PartyPayment/PartyPayment';
+import GeneralPayment from './components/Navbar/DataEntry/GeneralPayment/GeneralPayment';
+import CustomerReceipt from './components/Navbar/DataEntry/CustomerReceipt/CustomerReceipt';
+import GeneralReceipt from './components/Navbar/DataEntry/GeneralReceipt/GeneralReceipt';
+import CashDeposit from './components/Navbar/DataEntry/CashDeposit/CashDeposit';
+import CashWithdrawn from './components/Navbar/DataEntry/CashWithdrawn/CashWithdrawn';
+import JournalEntry from './components/Navbar/DataEntry/JournalEntry/JournalEntry';
 
 function App() {
   return (
@@ -100,14 +108,14 @@ function App() {
                 {/* Data Entry Submenu items */}
                 <Route path="/sale-bill" element={<SaleBill />}>Sale Bill</Route>
                 <Route path="/purchase-entry" element={<PurchaseEntry />}>Purchase Entry</Route>
-                {/* <Route path="/stock-transfer" element={}>Stock Transfer</Route>
-                <Route path="/party-payment" element={}>Party Payment</Route>
-                <Route path="/general-payment" element={}>General Payment</Route>
-                <Route path="/customer-receipt" element={}>Customer Receipt</Route>
-                <Route path="/general-receipt" element={}>General Receipt</Route>
-                <Route path="/cash-deposit" element={}>Cash Deposit to Bank</Route>
-                <Route path="/cash-withdrawn" element={}>Cash Withdrawn from Bank</Route>
-                <Route path="/journal-entry" element={}>Journal Entry</Route> */}
+                <Route path="/stock-transfer" element={<StockTransfer />}>Stock Transfer</Route>
+                <Route path="/party-payment" element={<PartyPayment />}>Party Payment</Route>
+                <Route path="/general-payment" element={<GeneralPayment />}>General Payment</Route>
+                <Route path="/customer-receipt" element={<CustomerReceipt />}>Customer Receipt</Route>
+                <Route path="/general-receipt" element={<GeneralReceipt />}>General Receipt</Route>
+                <Route path="/cash-deposit" element={<CashDeposit />}>Cash Deposit to Bank</Route>
+                <Route path="/cash-withdrawn" element={<CashWithdrawn />}>Cash Withdrawn from Bank</Route>
+                <Route path="/journal-entry" element={<JournalEntry />}>JournalEntry</Route>
 
                 {/* Sidebar items */}
                 <Route path="/daily-status" element={<DailyStatus />} />
