@@ -79,7 +79,7 @@ const PreviousYearDSR = () => {
           Item Total
         </Typography>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
@@ -132,7 +132,7 @@ const PreviousYearDSR = () => {
             </RadioGroup>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               fullWidth
               type="date"
@@ -145,7 +145,7 @@ const PreviousYearDSR = () => {
             />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               fullWidth
               type="date"
@@ -158,7 +158,7 @@ const PreviousYearDSR = () => {
             />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               fullWidth
@@ -177,7 +177,7 @@ const PreviousYearDSR = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               fullWidth
@@ -196,7 +196,7 @@ const PreviousYearDSR = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               fullWidth
@@ -215,7 +215,7 @@ const PreviousYearDSR = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               fullWidth
@@ -234,7 +234,7 @@ const PreviousYearDSR = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               fullWidth
@@ -253,7 +253,7 @@ const PreviousYearDSR = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               fullWidth
@@ -272,7 +272,7 @@ const PreviousYearDSR = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               select
               fullWidth
