@@ -86,10 +86,12 @@ const ItemCatRegister = () => {
             </Button>
           </Box>
         </Grid>
-      </Box>
-      <Box sx={{ p: 2, width: "900px" }}>
+
+        <Typography variant="subtitle1" gutterBottom>
+          Change Category
+        </Typography>
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -115,7 +117,7 @@ const ItemCatRegister = () => {
               })}
             </TextField>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               name="newCategory"

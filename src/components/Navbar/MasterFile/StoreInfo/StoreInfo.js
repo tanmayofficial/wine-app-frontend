@@ -32,7 +32,7 @@ const StoreInfo = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="text"
@@ -46,7 +46,7 @@ const StoreInfo = () => {
             />
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="text"
@@ -60,7 +60,7 @@ const StoreInfo = () => {
             />
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="text"
@@ -74,7 +74,7 @@ const StoreInfo = () => {
             />
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="number"

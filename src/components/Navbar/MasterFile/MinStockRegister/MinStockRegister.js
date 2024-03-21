@@ -34,7 +34,7 @@ const MinStockRegister = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="text"
@@ -46,7 +46,7 @@ const MinStockRegister = () => {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -73,7 +73,7 @@ const MinStockRegister = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -101,7 +101,7 @@ const MinStockRegister = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -122,7 +122,7 @@ const MinStockRegister = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="number"
@@ -133,6 +133,8 @@ const MinStockRegister = () => {
               onChange={(e) => setMinStock(e.target.value)}
             />
           </Grid>
+
+          <Grid item xs={3}></Grid>
 
           <Grid item xs={6}>
             <Box

@@ -26,7 +26,7 @@ const DealerCatDiscRegister = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
             select
               fullWidth
@@ -52,7 +52,7 @@ const DealerCatDiscRegister = () => {
               })}
             </TextField>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -79,7 +79,7 @@ const DealerCatDiscRegister = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -100,7 +100,7 @@ const DealerCatDiscRegister = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="number"

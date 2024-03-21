@@ -33,7 +33,7 @@ const SchemeRegister = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="text"
@@ -44,7 +44,7 @@ const SchemeRegister = () => {
               onChange={(e) => setSchemeNo(e.target.value)}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -58,7 +58,7 @@ const SchemeRegister = () => {
                 "Brand Head 1",
                 "Brand Head 2",
                 "Brand Head 3",
-                "Brand Head 4"
+                "Brand Head 4",
               ].map((item, id) => {
                 return (
                   <MenuItem key={id} value={item}>
@@ -68,7 +68,7 @@ const SchemeRegister = () => {
               })}
             </TextField>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="date"
@@ -79,7 +79,7 @@ const SchemeRegister = () => {
               onChange={(e) => setSchemePeriodFrom(e.target.value)}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="date"
@@ -90,7 +90,7 @@ const SchemeRegister = () => {
               onChange={(e) => setSchemePeriodTo(e.target.value)}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -117,7 +117,7 @@ const SchemeRegister = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -144,7 +144,7 @@ const SchemeRegister = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -170,43 +170,42 @@ const SchemeRegister = () => {
               })}
             </TextField>
           </Grid>
-          
         </Grid>
         <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginTop: "10px",
-            }}
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            // marginTop: "10px",
+          }}
+        >
+          <Button
+            color="primary"
+            size="large"
+            variant="outlined"
+            onClick={() => {}}
+            sx={{ marginTop: 3, marginRight: 2 }}
           >
-            <Button
-              color="primary"
-              size="large"
-              variant="outlined"
-              onClick={() => {}}
-              sx={{ marginTop: 3, marginRight: 2 }}
-            >
-              Save
-            </Button>
-            <Button
-              color="secondary"
-              size="large"
-              variant="outlined"
-              onClick={() => {}}
-              sx={{ marginTop: 3, marginRight: 2 }}
-            >
-              Print
-            </Button>
-            <Button
-              color="error"
-              size="large"
-              variant="outlined"
-              onClick={() => {}}
-              sx={{ marginTop: 3 }}
-            >
-              Clear
-            </Button>
-          </Box>
+            Save
+          </Button>
+          <Button
+            color="secondary"
+            size="large"
+            variant="outlined"
+            onClick={() => {}}
+            sx={{ marginTop: 3, marginRight: 2 }}
+          >
+            Print
+          </Button>
+          <Button
+            color="error"
+            size="large"
+            variant="outlined"
+            onClick={() => {}}
+            sx={{ marginTop: 3 }}
+          >
+            Clear
+          </Button>
+        </Box>
       </Box>
     </form>
   );

@@ -25,14 +25,14 @@ const LedgerCreation = () => {
     <form>
       <Box sx={{ p: 2, width: "900px" }}>
         <Typography variant="h5" component="div" gutterBottom>
-          Minimum Stock Register
+          Ledger Creation
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Item Details
+          Ledger Details
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="text"
@@ -45,7 +45,7 @@ const LedgerCreation = () => {
             />
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               select
               fullWidth
@@ -56,7 +56,7 @@ const LedgerCreation = () => {
               variant="outlined"
               onChange={(e) => setGroupName(e.target.value)}
             >
-              {["BANK 1", "BANK 2", "BANK 3", "BANK 4", "BANK 5"].map(
+              {["BANK 1", "BANK 2", "BANK 3", "BANK 4", "BANK 3"].map(
                 (item, id) => {
                   return (
                     <MenuItem key={id} value={item}>
@@ -68,7 +68,7 @@ const LedgerCreation = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="number"
@@ -81,7 +81,7 @@ const LedgerCreation = () => {
             />
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={3}>
             <TextField
               fullWidth
               type="number"

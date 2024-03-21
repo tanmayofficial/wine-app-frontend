@@ -26,7 +26,7 @@ const ItemDiscountRegister = () => {
           Item Details
         </Typography>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           <Grid item xs={4}>
             <TextField
               fullWidth
