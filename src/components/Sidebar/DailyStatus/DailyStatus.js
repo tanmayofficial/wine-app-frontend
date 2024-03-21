@@ -1,38 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 
 const DailyStatus = () => {
-  const [value, setValue] = React.useState([
-    dayjs("2024-04-17"),
-    dayjs("2024-04-21"),
-  ]);
+  const [filterData, setFilterData] = useState({
+    dateFrom: "mm/dd/yyyy",
+    dateTo: "mm/dd/yyyy",
+    purBill: "",
+    purMrp: "",
+    saleBill: "",
+    saleMrp: "",
+    discAmt: "",
+    payment: "",
+    saleReceipt: "",
+    dueReceipt: "",
+    currStockPurVal: "",
+    currStockMrpVal: "",
+    balSupplier: "",
+    balCustomer: "",
+    cash: "",
+  });
 
   return (
     <form>
       <Box sx={{ p: 2, width: "900px" }}>
         <Typography variant="h5" component="div" gutterBottom>
           Daily Status
-        </Typography>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            components={["DateRangePicker"]}
-            sx={{ marginBottom: "16px" }}
-          >
-            <DemoItem label="Pick A Date Range" component="DateRangePicker">
-              <DateRangePicker
-                value={value}
-                onChange={(newValue) => setValue(newValue)}
-              />
-            </DemoItem>
-          </DemoContainer>
-        </LocalizationProvider>
+        </Typography>{" "}
+        <br />
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
+            <TextField
+              fullWidth
+              type="date"
+              label="Date from"
+              name="dateFrom"
+              variant="outlined"
+              value={filterData.dateFrom}
+              onChange={(e) =>
+                setFilterData({ ...filterData, dateFrom: e.target.value })
+              }
+            />
+          </Grid>
+
+          <Grid item xs={2}>
+            <TextField
+              fullWidth
+              type="date"
+              label="Date to"
+              name="dateTo"
+              variant="outlined"
+              value={filterData.dateTo}
+              onChange={(e) =>
+                setFilterData({ ...filterData, dateTo: e.target.value })
+              }
+            />
+          </Grid>
+          <Grid item xs={2}>
             <TextField
               name="PurchaseBill"
               label="Purchase Bill Value"
@@ -40,11 +63,13 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.purBill}
+              onChange={(e) =>
+                setFilterData({ ...filterData, purBill: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="PurchaseBill"
               label="Purchase Mrp Value"
@@ -52,11 +77,13 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.purMrp}
+              onChange={(e) =>
+                setFilterData({ ...filterData, purMrp: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="SaleBill"
               label="Sale Bill Value"
@@ -64,35 +91,41 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.saleBill}
+              onChange={(e) =>
+                setFilterData({ ...filterData, saleBill: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
-              name="SaleBill"
+              name="SaleMRP"
               label="Sale MRP Value"
               variant="outlined"
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.saleMrp}
+              onChange={(e) =>
+                setFilterData({ ...filterData, saleMrp: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="Discount"
-              label="Discount Amt. (₹)"
+              label="Discount Amt.(₹)"
               variant="outlined"
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.discAmt}
+              onChange={(e) =>
+                setFilterData({ ...filterData, discAmt: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="Payment"
               label="Payment (₹)"
@@ -100,11 +133,13 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.payment}
+              onChange={(e) =>
+                setFilterData({ ...filterData, payment: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="ReciptOnSale"
               label="Recipt On Sale"
@@ -112,11 +147,13 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.saleReceipt}
+              onChange={(e) =>
+                setFilterData({ ...filterData, saleReceipt: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="ReciptOnDue"
               label="Recipt On Due"
@@ -124,11 +161,13 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.dueReceipt}
+              onChange={(e) =>
+                setFilterData({ ...filterData, dueReceipt: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="curentStockPurchaseValue"
               label="Curent Stock Purchase Value"
@@ -136,24 +175,34 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.currStockPurVal}
+              onChange={(e) =>
+                setFilterData({
+                  ...filterData,
+                  currStockPurVal: e.target.value,
+                })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="curentStockMRPValue"
-              label="Curent Stock MRP Value"
+              label="Current Stock MRP Value"
               variant="outlined"
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.currStockMrpVal}
+              onChange={(e) =>
+                setFilterData({
+                  ...filterData,
+                  currStockMrpVal: e.target.value,
+                })
+              }
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="balanceSupplier"
               label="Supplier Balance"
@@ -161,11 +210,13 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.balSupplier}
+              onChange={(e) =>
+                setFilterData({ ...filterData, balSupplier: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="balanceCustomer"
               label="Customer Balance"
@@ -173,11 +224,13 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.balCustomer}
+              onChange={(e) =>
+                setFilterData({ ...filterData, balCustomer: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="cash"
               label="Cash"
@@ -185,37 +238,38 @@ const DailyStatus = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={""}
-              onChange={() => {}}
+              value={filterData.cash}
+              onChange={(e) =>
+                setFilterData({ ...filterData, cash: e.target.value })
+              }
             />
           </Grid>
-          <Grid item xs={6}></Grid>
+          <Grid item xs={2}></Grid>
         </Grid>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          p: 2,
-          "& button": { m: 1, marginRight: 4 },
-        }}
-      >
-        <Button
-          color="primary"
-          size="large"
-          variant="outlined"
-          onClick={() => {}}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 2,
+          }}
         >
-          Save
-        </Button>
-        <Button
-          color="error"
-          size="large"
-          variant="outlined"
-          onClick={() => {}}
-        >
-          Clear
-        </Button>
+          <Button
+            color="primary"
+            size="large"
+            variant="outlined"
+            onClick={() => {}}
+          >
+            Save
+          </Button>
+          <Button
+            color="error"
+            size="large"
+            variant="outlined"
+            onClick={() => {}}
+          >
+            Clear
+          </Button>
+        </Box>
       </Box>
     </form>
   );
