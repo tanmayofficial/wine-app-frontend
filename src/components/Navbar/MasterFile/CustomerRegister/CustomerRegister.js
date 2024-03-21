@@ -7,9 +7,6 @@ import {
   MenuItem,
   Grid,
 } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const CustomerRegister = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +17,7 @@ const CustomerRegister = () => {
     mobileNo: "",
     openingBalance: "",
     discount: "",
-    validUpto: null,
+    validUpto: "mm/dd/yyyy",
     customerType: "",
     discountCategory: "",
     additionalCharges: "",
@@ -67,75 +64,69 @@ const CustomerRegister = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="name"
               label="Name of Customer/Company"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               value={formData.name}
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="contactPersons"
               label="Contact Persons"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               value={formData.contactPersons}
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="address"
               label="Address"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               value={formData.address}
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="phoneNo"
               label="Phone No."
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               type="number"
               value={formData.phoneNo}
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="mobileNo"
               label="Mobile No."
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               type="number"
               value={formData.mobileNo}
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="openingBalance"
               label="Opening Balance (Rs.)"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               type="number"
               inputProps={{ min: 0 }}
@@ -143,52 +134,37 @@ const CustomerRegister = () => {
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="discount"
               label="Discount (%)"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               type="number"
               value={formData.discount}
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                name="validUpto"
-                label="Valid Upto"
-                value={formData.validUpto}
-                onChange={(newValue) =>
-                  setFormData((prevData) => ({
-                    ...prevData,
-                    validUpto: newValue,
-                  }))
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth
-                    margin="normal"
-                    variant="outlined"
-                  />
-                )}
-                fullWidth
-                margin="normal"
-              />
-            </LocalizationProvider>
+          <Grid item xs={2}>
+            <TextField
+              fullWidth
+              type="date"
+              label="Valid Upto"
+              name="validUpto"
+              className="form-field"
+              variant="outlined"
+              value={formData.validUpto}
+              onChange={handleFormChange}
+            />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="customerType"
               select
               label="Customer Type"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               value={formData.customerType}
               onChange={handleFormChange}
@@ -197,14 +173,13 @@ const CustomerRegister = () => {
               <MenuItem value="online">Online</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="discountCategory"
               select
               label="Discount Category"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               value={formData.discountCategory}
               onChange={handleFormChange}
@@ -213,13 +188,12 @@ const CustomerRegister = () => {
               <MenuItem value="2">2</MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={2}>
             <TextField
               name="additionalCharges"
               label="Additional Charges (%)"
               variant="outlined"
               fullWidth
-              margin="normal"
               className="form-field"
               type="number"
               value={formData.additionalCharges}
@@ -227,31 +201,31 @@ const CustomerRegister = () => {
             />
           </Grid>
         </Grid>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          p: 2,
-          "& button": { m: 1, marginRight: 4 },
-        }}
-      >
-        <Button
-          color="primary"
-          size="large"
-          variant="outlined"
-          onClick={handleSave}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            gap: 2,
+            marginTop: 2
+          }}
         >
-          Save
-        </Button>
-        <Button
-          color="error"
-          size="large"
-          variant="outlined"
-          onClick={handleClear}
-        >
-          Clear
-        </Button>
+          <Button
+            color="primary"
+            size="large"
+            variant="outlined"
+            onClick={handleSave}
+          >
+            Save
+          </Button>
+          <Button
+            color="error"
+            size="large"
+            variant="outlined"
+            onClick={handleClear}
+          >
+            Clear
+          </Button>
+        </Box>
       </Box>
     </form>
   );
