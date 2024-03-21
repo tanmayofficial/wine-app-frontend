@@ -55,11 +55,9 @@ const LicenseeInfo = () => {
     billMessages: "",
     messageMobile: "",
     excelConvtFile: "",
-  })
+  });
 
-  const clearForm = () => {
-    
-  };
+  const clearForm = () => {};
 
   return (
     <form>
@@ -568,7 +566,6 @@ const LicenseeInfo = () => {
       <Divider />
 
       <Box sx={{ p: 2, width: "900px" }}>
-
         <Grid container spacing={2}>
           <Grid item xs={2}>
             <TextField
@@ -694,7 +691,7 @@ const LicenseeInfo = () => {
                 })
               }
             >
-              {['C:', 'D:', 'E:'].map((item, id) => (
+              {["C:", "D:", "E:"].map((item, id) => (
                 <MenuItem key={id} value={item}>
                   {item}
                 </MenuItem>
@@ -739,42 +736,41 @@ const LicenseeInfo = () => {
           </Grid>
 
           <Grid item xs={4}>
-          <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end"
-          }}
-        >
-          <Button
-            color="primary"
-            size="large"
-            variant="outlined"
-            onClick={() => {}}
-            sx={{ marginTop: 2, marginRight: 2 }}
-          >
-            Save
-          </Button>
-          <Button
-            color="secondary"
-            size="large"
-            variant="outlined"
-            onClick={() => {}}
-            sx={{ marginTop: 2, marginRight: 2 }}
-          >
-            Print
-          </Button>
-          <Button
-            color="error"
-            size="large"
-            variant="outlined"
-            onClick={clearForm}
-            sx={{ marginTop: 2 }}
-          >
-            Clear
-          </Button>
-        </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Button
+                color="primary"
+                size="large"
+                variant="outlined"
+                onClick={() => {}}
+                sx={{ marginTop: 2, marginRight: 2 }}
+              >
+                Save
+              </Button>
+              <Button
+                color="secondary"
+                size="large"
+                variant="outlined"
+                onClick={() => {}}
+                sx={{ marginTop: 2, marginRight: 2 }}
+              >
+                Print
+              </Button>
+              <Button
+                color="error"
+                size="large"
+                variant="outlined"
+                onClick={clearForm}
+                sx={{ marginTop: 2 }}
+              >
+                Clear
+              </Button>
+            </Box>
           </Grid>
-
         </Grid>
       </Box>
     </form>

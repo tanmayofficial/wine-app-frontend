@@ -60,7 +60,18 @@ const JournalEntry = () => {
             />
           </Grid>
 
-          <Grid item xs={4}></Grid>
+          <Grid item xs={4}>
+            <TextField
+              name="narration"
+              label="Narration"
+              variant="outlined"
+              type="text"
+              fullWidth
+              className="form-field"
+              value={narration}
+              onChange={(e) => setNarration(e.target.value)}
+            />
+          </Grid>
 
           <Grid item xs={4}>
             <TextField
@@ -169,22 +180,7 @@ const JournalEntry = () => {
             />
           </Grid>
 
-          <Grid item xs={4}>
-            <TextField
-              name="narration"
-              label="Narration"
-              variant="outlined"
-              type="text"
-              fullWidth
-              className="form-field"
-              value={narration}
-              onChange={(e) => setNarration(e.target.value)}
-            />
-          </Grid>
-
-          <Grid item xs={4}></Grid>
-
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Box
               sx={{
                 display: "flex",

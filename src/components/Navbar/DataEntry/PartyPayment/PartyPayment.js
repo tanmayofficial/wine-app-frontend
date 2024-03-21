@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Grid,
   MenuItem,
   Paper,
@@ -17,21 +18,23 @@ import React, { useState } from "react";
 
 const PartyPayment = () => {
   const todaysDate = dayjs();
-  const [supName, setSupName] = useState("");
-  const [address, setAddress] = useState("");
-  const [contact, setContact] = useState("");
-  const [currentBal, setCurrentBal] = useState("");
-  const [paymentNo, setPaymentNo] = useState("");
-  const [paymentBillNo, setPaymentBillNo] = useState("");
-  const [amtPaidRs, setAmtPaidRs] = useState("");
-  const [amtPaidDate, setAmtPaidDate] = useState(todaysDate);
-  const [mode, setMode] = useState(["CASH", "ONLINE"]);
-  const [chequeNo, setChequeNo] = useState("");
-  const [chequeDate, setChequeDate] = useState(todaysDate);
-  const [bankAccnt, setBankAccnt] = useState("");
-  const [remarks, setRemarks] = useState("");
-  const [bankBal, setBankBal] = useState("");
-  const [adjustAmt, setAdjustAmt] = useState("");
+  const [formData, setFormData] = useState({
+    supName: "",
+    address: "",
+    contact: "",
+    currentBal: "",
+    paymentNo: "",
+    paymentBillNo: "",
+    amtPaidRs: "",
+    amtPaidDate: todaysDate,
+    mode: ["CASH", "ONLINE"],
+    chequeNo: "",
+    chequeDate: todaysDate,
+    bankAccnt: "",
+    remarks: "",
+    bankBal: "",
+    adjustAmt: "",
+  });
 
   const [tableData, setTableData] = useState(
     Array.from({ length: 4 }, () => ({
@@ -43,11 +46,21 @@ const PartyPayment = () => {
   );
 
   const handleSupplierNameChange = (selectedItem) => {
-    setSupName(selectedItem);
+    setFormData((prevData) => ({
+      ...prevData,
+      supName: selectedItem,
+    }));
     console.log(selectedItem);
   };
 
-  const handleItemCodeChange = () => {};
+  const handleItemCodeChange = (event, index, fieldName) => {
+    const { value } = event.target;
+    setTableData((prevData) =>
+      prevData.map((item, idx) =>
+        idx === index ? { ...item, [fieldName]: value } : item
+      )
+    );
+  };
 
   return (
     <form>
@@ -60,7 +73,7 @@ const PartyPayment = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               name="supName"
               label="Supplier Name"
@@ -68,7 +81,7 @@ const PartyPayment = () => {
               type="text"
               fullWidth
               className="form-field"
-              value={supName}
+              value={formData.supName}
               select
               onChange={(e) => handleSupplierNameChange(e.target.value)}
             >
@@ -78,7 +91,7 @@ const PartyPayment = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               name="address"
               label="Address"
@@ -86,12 +99,14 @@ const PartyPayment = () => {
               type="text"
               fullWidth
               className="form-field"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={formData.address}
+              onChange={(e) =>
+                setFormData({ ...formData, address: e.target.value })
+              }
             />
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               name="contactNo"
               label="Contact No."
@@ -99,12 +114,14 @@ const PartyPayment = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
+              value={formData.contact}
+              onChange={(e) =>
+                setFormData({ ...formData, contact: e.target.value })
+              }
             />
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               name="currentBal"
               label="Current Balance"
@@ -112,12 +129,14 @@ const PartyPayment = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={currentBal}
-              onChange={(e) => setCurrentBal(e.target.value)}
+              value={formData.currentBal}
+              onChange={(e) =>
+                setFormData({ ...formData, currentBal: e.target.value })
+              }
             />
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               name="paymentNo"
               label="Payment No."
@@ -125,12 +144,14 @@ const PartyPayment = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={paymentNo}
-              onChange={(e) => setPaymentNo(e.target.value)}
+              value={formData.paymentNo}
+              onChange={(e) =>
+                setFormData({ ...formData, paymentNo: e.target.value })
+              }
             />
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <TextField
               name="paymentBillNo"
               label="Payment Bill No."
@@ -138,8 +159,10 @@ const PartyPayment = () => {
               type="number"
               fullWidth
               className="form-field"
-              value={paymentBillNo}
-              onChange={(e) => setPaymentBillNo(e.target.value)}
+              value={formData.paymentBillNo}
+              onChange={(e) =>
+                setFormData({ ...formData, paymentBillNo: e.target.value })
+              }
             />
           </Grid>
         </Grid>
@@ -231,8 +254,10 @@ const PartyPayment = () => {
                 type="number"
                 fullWidth
                 className="form-field"
-                value={amtPaidRs}
-                onChange={(e) => setAmtPaidRs(e.target.value)}
+                value={formData.amtPaidRs}
+                onChange={(e) =>
+                  setFormData({ ...formData, amtPaidRs: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -244,8 +269,13 @@ const PartyPayment = () => {
                 type="date"
                 fullWidth
                 className="form-field"
-                value={dayjs(amtPaidDate).format("YYYY-MM-DD")}
-                onChange={(e) => setAmtPaidDate(dayjs(e.target.value))}
+                value={dayjs(formData.amtPaidDate).format("YYYY-MM-DD")}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    amtPaidDate: dayjs(e.target.value),
+                  })
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -256,8 +286,10 @@ const PartyPayment = () => {
                 size="small"
                 fullWidth
                 select
-                value={mode}
-                onChange={(e) => setMode(e.target.value)}
+                value={formData.mode}
+                onChange={(e) =>
+                  setFormData({ ...formData, mode: e.target.value })
+                }
               >
                 {["CASH", "ONLINE"].map((option) => (
                   <MenuItem key={option} value={option}>
@@ -266,7 +298,7 @@ const PartyPayment = () => {
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={3}></Grid>
+            {/* <Grid item xs={3}></Grid> */}
             <Grid item xs={3}>
               <TextField
                 name="chequeNo"
@@ -276,8 +308,10 @@ const PartyPayment = () => {
                 type="text"
                 fullWidth
                 className="form-field"
-                value={chequeNo}
-                onChange={(e) => setChequeNo(e.target.value)}
+                value={formData.chequeNo}
+                onChange={(e) =>
+                  setFormData({ ...formData, chequeNo: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -289,8 +323,13 @@ const PartyPayment = () => {
                 type="date"
                 fullWidth
                 className="form-field"
-                value={chequeDate}
-                onChange={(e) => setChequeDate(e.target.value)}
+                value={dayjs(formData.chequeDate).format("YYYY-MM-DD")}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    chequeDate: dayjs(e.target.value),
+                  })
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -302,11 +341,13 @@ const PartyPayment = () => {
                 type="text"
                 fullWidth
                 className="form-field"
-                value={bankAccnt}
-                onChange={(e) => setBankAccnt(e.target.value)}
+                value={formData.bankAccnt}
+                onChange={(e) =>
+                  setFormData({ ...formData, bankAccnt: e.target.value })
+                }
               />
             </Grid>
-            <Grid item xs={3}></Grid>
+            {/* <Grid item xs={3}></Grid> */}
             <Grid item xs={3}>
               <TextField
                 name="remarks"
@@ -316,8 +357,10 @@ const PartyPayment = () => {
                 type="text"
                 fullWidth
                 className="form-field"
-                value={remarks}
-                onChange={(e) => setRemarks(e.target.value)}
+                value={formData.remarks}
+                onChange={(e) =>
+                  setFormData({ ...formData, remarks: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -329,8 +372,10 @@ const PartyPayment = () => {
                 type="text"
                 fullWidth
                 className="form-field"
-                value={bankBal}
-                onChange={(e) => setBankBal(e.target.value)}
+                value={formData.bankBal}
+                onChange={(e) =>
+                  setFormData({ ...formData, bankBal: e.target.value })
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -342,10 +387,50 @@ const PartyPayment = () => {
                 type="text"
                 fullWidth
                 className="form-field"
-                value={adjustAmt}
-                onChange={(e) => setAdjustAmt(e.target.value)}
+                value={formData.adjustAmt}
+                onChange={(e) =>
+                  setFormData({ ...formData, adjustAmt: e.target.value })
+                }
               />
             </Grid>
+            <Grid item xs={6}></Grid>
+
+            <Grid item xs={3}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Button
+                color="primary"
+                size="large"
+                variant="outlined"
+                onClick={() => {}}
+                sx={{ marginTop: 2, marginRight: 2 }}
+              >
+                Save
+              </Button>
+              <Button
+                color="secondary"
+                size="large"
+                variant="outlined"
+                onClick={() => {}}
+                sx={{ marginTop: 2, marginRight: 2 }}
+              >
+                Print
+              </Button>
+              <Button
+                color="error"
+                size="large"
+                variant="outlined"
+                onClick={() => {}}
+                sx={{ marginTop: 2 }}
+              >
+                Clear
+              </Button>
+            </Box>
+          </Grid>
           </Grid>
         </Box>
       </Box>
