@@ -102,8 +102,8 @@ const SuppliersRegister = () => {
           Suppliers Details
         </Typography>
 
-        <Grid container spacing={2} sx={{ marginTop: 1 }}>
-          <Grid item xs={6}>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
             <TextField
               select
               name="supName"
@@ -121,7 +121,7 @@ const SuppliersRegister = () => {
               ))}
             </TextField>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               name="contactPersons"
               label="Contact Persons"
@@ -132,7 +132,7 @@ const SuppliersRegister = () => {
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               name="address"
               label="Address"
@@ -144,7 +144,7 @@ const SuppliersRegister = () => {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               name="mobileNo"
               label="Mobile No."
@@ -156,7 +156,7 @@ const SuppliersRegister = () => {
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               name="gstIn"
               label="GSTIN"
@@ -169,7 +169,7 @@ const SuppliersRegister = () => {
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               name="cinNo"
               label="CIN No."
@@ -181,10 +181,10 @@ const SuppliersRegister = () => {
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               name="openingBalance"
-              label="Opening Balance (Rs.)"
+              label="Opening Balance"
               variant="outlined"
               fullWidth
               className="form-field"
@@ -194,7 +194,7 @@ const SuppliersRegister = () => {
               onChange={handleFormChange}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <TextField
               name="tcsCalculation"
               label="TCS Calculation"
