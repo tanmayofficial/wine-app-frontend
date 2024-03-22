@@ -6,9 +6,12 @@ const Navbar = () => {
   const [isMasterFileDropdownOpen, setIsMasterFileDropdownOpen] =
     useState(false);
   const [isDataEntryDropdownOpen, setIsDataEntryDropdownOpen] = useState(false);
+  const [isSaleReportDropdownOpen, setIsSaleReportDropdownOpen] =
+    useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const masterFileDropdownRef = useRef(null); 
+  const masterFileDropdownRef = useRef(null);
   const dataEntryDropdownRef = useRef(null);
+  const saleReportDropdownRef = useRef(null);
 
   const toggleMasterFileDropdown = () => {
     setIsMasterFileDropdownOpen((prevState) => !prevState);
@@ -16,6 +19,10 @@ const Navbar = () => {
 
   const toggleDataEntryDropdown = () => {
     setIsDataEntryDropdownOpen((prevState) => !prevState);
+  };
+
+  const toggleSaleReportDropdown = () => {
+    setIsSaleReportDropdownOpen((prevState) => !prevState);
   };
 
   const toggleSidebar = () => {
@@ -35,6 +42,12 @@ const Navbar = () => {
         !dataEntryDropdownRef.current.contains(event.target)
       ) {
         setIsDataEntryDropdownOpen(false);
+      }
+      if (
+        saleReportDropdownRef.current &&
+        !saleReportDropdownRef.current.contains(event.target)
+      ) {
+        setIsSaleReportDropdownOpen(false);
       }
     };
 
@@ -112,10 +125,45 @@ const Navbar = () => {
             </div>
           </li>
 
-          <li className="nav-item">
-            <Link to="/sale-report" className="nav-link">
-              Sale Report
-            </Link>
+          <li className="nav-item dropdown" ref={saleReportDropdownRef}>
+            <span
+              className="dropdown-toggle nav-link"
+              onClick={toggleSaleReportDropdown}
+            >
+              Sale Report <i className="fas fa-caret-down"></i>
+            </span>
+
+            <div
+              className={`dropdown-content ${
+                isSaleReportDropdownOpen ? "open" : ""
+              }`}
+            >
+              <Link to="/sale-report-summary">Sale Report (Summary)</Link>
+              <Link to="/item-wise-sale-report">Item Wise Sale Report</Link>
+              <Link to="/daily-sale-report">Daily Sale Report (DSR)</Link>
+              <Link to="/daily-profit-report">Daily Profit Report</Link>
+              <Link to="/sale-status-report">Sale Status Report</Link>
+              <Link to="/daily-item-sale-category">
+                Daily Item Sale Status (Category)
+              </Link>
+              <Link to="/daily-item-sale-brand">
+                Daily Item Sale Status (Brand)
+              </Link>
+              <Link to="/daily-item-status">Daily Item Status</Link>
+              <Link to="/customer-due-report">Customer Due Report</Link>
+              <Link to="/salesman-report">Salesman Report</Link>
+              <Link to="/receipt-report">Receipt Report</Link>
+              <Link to="/bill-wise-collection-report">
+                Bill Wise Collection Report
+              </Link>
+              <Link to="/dealer-sale-discount-chart">
+                Dealer Sale Discount Chart
+              </Link>
+              <Link to="/customer-transaction-details">
+                Customer Transaction Details
+              </Link>
+              <Link to="/profit-on-sale">Profit On Sale</Link>
+            </div>
           </li>
           <li className="nav-item">
             <Link to="/purchase-report" className="nav-link">
