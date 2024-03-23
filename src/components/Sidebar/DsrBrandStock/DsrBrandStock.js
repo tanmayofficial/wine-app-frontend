@@ -78,27 +78,8 @@ const DsrBrandStock = () => {
     "100 Pipers 12Yr 750",
     "100 Pipers W180",
   ];
-  const billFromOptions = [
-    "A0",
-    "A1",
-    "A2",
-    "A3",
-    "A4",
-    "A5",
-    "A6",
-    "A7",
-    "A8",
-  ];
-  const billToOptions = ["A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"];
-  const seriesOptions = ["A", "B", "C", "D", "E", "ALL"];
+
   const stockInOptions = ["All", "Godown", "Showroom"];
-  const groupOptions = [
-    "All",
-    "Beer",
-    "Country Sprit",
-    "Foreign Liquor",
-    "India Made Liquor",
-  ];
 
   return (
     <form>
@@ -286,32 +267,32 @@ const DsrBrandStock = () => {
             </Grid>
 
             <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginLeft: 2,
-          }}
-        >
-          <Button
-            color="primary"
-            size="large"
-            variant="outlined"
-            onClick={() => {}}
-            sx={{ marginTop: 2, marginRight: 2 }}
-          >
-            Save
-          </Button>
-          
-          <Button
-            color="error"
-            size="large"
-            variant="outlined"
-            onClick={() => {}}
-            sx={{ marginTop: 2 }}
-          >
-            Delete
-          </Button>
-        </Box>
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginLeft: 2,
+              }}
+            >
+              <Button
+                color="primary"
+                size="large"
+                variant="outlined"
+                onClick={() => {}}
+                sx={{ marginTop: 2, marginRight: 2 }}
+              >
+                Save
+              </Button>
+
+              <Button
+                color="error"
+                size="large"
+                variant="outlined"
+                onClick={() => {}}
+                sx={{ marginTop: 2 }}
+              >
+                Delete
+              </Button>
+            </Box>
           </Grid>
         </Box>
 
