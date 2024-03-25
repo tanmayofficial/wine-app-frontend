@@ -156,7 +156,7 @@ const DsrOpst = () => {
             </RadioGroup>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               fullWidth
               type="date"
@@ -169,7 +169,7 @@ const DsrOpst = () => {
             />
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               fullWidth
               type="date"
@@ -182,7 +182,7 @@ const DsrOpst = () => {
             />
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth
@@ -202,7 +202,7 @@ const DsrOpst = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth
@@ -223,7 +223,7 @@ const DsrOpst = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth
@@ -243,9 +243,7 @@ const DsrOpst = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={2}></Grid>
-
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth
@@ -266,7 +264,7 @@ const DsrOpst = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth
@@ -287,7 +285,7 @@ const DsrOpst = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth
@@ -308,7 +306,7 @@ const DsrOpst = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth
@@ -328,7 +326,7 @@ const DsrOpst = () => {
             </TextField>
           </Grid>
 
-          <Grid item xs={2}>
+          <Grid item xs={2.4}>
             <TextField
               select
               fullWidth

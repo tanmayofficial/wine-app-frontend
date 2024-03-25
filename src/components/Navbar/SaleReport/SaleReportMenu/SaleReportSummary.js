@@ -22,8 +22,7 @@ import React, { useState } from "react";
 
 const SaleReportSummary = () => {
   const [selectOptions, setselectOptions] = useState(null);
-  const [newBrandName, setNewBrandName] = useState("");
-  const [newCompanyName, setNewCompanyName] = useState("");
+
 
   const [filterData, setFilterData] = useState({
     dateFrom: "mm/dd/yyyy",
@@ -62,7 +61,7 @@ const SaleReportSummary = () => {
         </Typography>
 
         <Grid container spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={9}>
             <RadioGroup
               row
               name="selectOptions"
@@ -97,6 +96,26 @@ const SaleReportSummary = () => {
                 label="Customer/Phone"
               />
             </RadioGroup>
+          </Grid>
+          <Grid item xs={1}></Grid>
+
+          <Grid item xs={2}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={filterData.isChecked}
+                  inputProps={{ "aria-label": "controlled" }}
+                  onChange={(e) =>
+                    setFilterData({
+                      ...filterData,
+                      isChecked: e.target.checked,
+                    })
+                  }
+                />
+              }
+              label="Only Disc. Bills"
+              
+            />
           </Grid>
 
           <Grid item xs={2}>
@@ -231,23 +250,6 @@ const SaleReportSummary = () => {
 
           {/* <Grid item xs={3}></Grid> */}
 
-          <Grid item xs={2}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={filterData.isChecked}
-                  inputProps={{ "aria-label": "controlled" }}
-                  onChange={(e) =>
-                    setFilterData({
-                      ...filterData,
-                      isChecked: e.target.checked,
-                    })
-                  }
-                />
-              }
-              label="Only Discounted Bills"
-            />
-          </Grid>
         </Grid>
 
         <TableContainer
