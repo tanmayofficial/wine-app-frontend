@@ -16,10 +16,6 @@ import MinStockRegister from "./components/Navbar/MasterFile/MinStockRegister/Mi
 import SchemeRegister from "./components/Navbar/MasterFile/SchemeRegister/SchemeRegister";
 import StockRegister from "./components/Sidebar/StockRegister/StockRegister";
 import StoreInfo from "./components/Navbar/MasterFile/StoreInfo/StoreInfo";
-
-import DataEntry from "./components/Navbar/DataEntry/DataEntry";
-import SaleReport from "./components/Navbar/SaleReport/SaleReport";
-import PurchaseReport from "./components/Navbar/PurchaseReport/PurchaseReport";
 import InventoryReport from "./components/Navbar/InventoryReport/InventoryReport";
 import ExciseReport from "./components/Navbar/ExciseReport/ExciseReport";
 import AuditAndAccounts from "./components/Navbar/AuditAndAccounts/AuditAndAccounts";
@@ -39,7 +35,6 @@ import DsrOpst from "./components/Sidebar/DsrOpst/DsrOpst";
 import DsrBrandStock from "./components/Sidebar/DsrBrandStock/DsrBrandStock";
 import CatLedgerPack from "./components/Sidebar/CatLedgerPack/CatLedgerPack";
 import GtinStock from "./components/Sidebar/GtinStock/GtinStock";
-import "./App.css";
 import SaleBill from "./components/Navbar/DataEntry/SaleBill/SaleBill";
 import PurchaseEntry from "./components/Navbar/DataEntry/PurchaseEntry/PurchaseEntry";
 import StockTransfer from "./components/Navbar/DataEntry/StockTransfer/StockTransfer";
@@ -50,21 +45,31 @@ import GeneralReceipt from "./components/Navbar/DataEntry/GeneralReceipt/General
 import CashDeposit from "./components/Navbar/DataEntry/CashDeposit/CashDeposit";
 import CashWithdrawn from "./components/Navbar/DataEntry/CashWithdrawn/CashWithdrawn";
 import JournalEntry from "./components/Navbar/DataEntry/JournalEntry/JournalEntry";
-import SaleReportSummary from "./components/Navbar/SaleReport/SaleReportMenu/SaleReportSummary";
-import ItemWiseSaleReport from "./components/Navbar/SaleReport/SaleReportMenu/ItemWiseSaleReport";
-import DailySaleReport from "./components/Navbar/SaleReport/SaleReportMenu/DailySaleReport";
-import DailyProfitReport from "./components/Navbar/SaleReport/SaleReportMenu/DailyProfitReport";
-import SaleStatusReport from "./components/Navbar/SaleReport/SaleReportMenu/SaleStatusReport";
-import DailyItemSaleCategory from "./components/Navbar/SaleReport/SaleReportMenu/DailyItemSaleCategory";
-import DailyItemSaleBrand from "./components/Navbar/SaleReport/SaleReportMenu/DailyItemSaleBrand";
-import DailyItemStatus from "./components/Navbar/SaleReport/SaleReportMenu/DailyItemStatus";
-import CustomerDueReport from "./components/Navbar/SaleReport/SaleReportMenu/CustomerDueReport";
-import SalesmanReport from "./components/Navbar/SaleReport/SaleReportMenu/SalesmanReport";
-import ReceiptReport from "./components/Navbar/SaleReport/SaleReportMenu/ReceiptReport";
-import BillWiseCollectionReport from "./components/Navbar/SaleReport/SaleReportMenu/BillWiseCollectionReport";
-import DealerSaleDiscountChart from "./components/Navbar/SaleReport/SaleReportMenu/DealerSaleDiscountChart";
-import CustomerTransactionDetails from "./components/Navbar/SaleReport/SaleReportMenu/CustomerTransactionDetails";
-import ProfitOnSale from "./components/Navbar/SaleReport/SaleReportMenu/ProfitOnSale";
+import SaleReportSummary from "./components/Navbar/SaleReport/SaleReportSummary";
+import ItemWiseSaleReport from "./components/Navbar/SaleReport/ItemWiseSaleReport";
+import DailySaleReport from "./components/Navbar/SaleReport/DailySaleReport";
+import DailyProfitReport from "./components/Navbar/SaleReport/DailyProfitReport";
+import DailyItemSaleCategory from "./components/Navbar/SaleReport/DailyItemSaleCategory";
+import DailyItemSaleBrand from "./components/Navbar/SaleReport/DailyItemSaleBrand";
+import DailyItemStatus from "./components/Navbar/SaleReport/DailyItemStatus";
+import CustomerDueReport from "./components/Navbar/SaleReport/CustomerDueReport";
+import SalesmanReport from "./components/Navbar/SaleReport/SalesmanReport";
+import ReceiptReport from "./components/Navbar/SaleReport/ReceiptReport";
+import BillWiseCollectionReport from "./components/Navbar/SaleReport/BillWiseCollectionReport";
+import DealerSaleDiscountChart from "./components/Navbar/SaleReport/DealerSaleDiscountChart";
+import CustomerTransactionDetails from "./components/Navbar/SaleReport/CustomerTransactionDetails";
+import ProfitOnSale from "./components/Navbar/SaleReport/ProfitOnSale";
+import BrandSaleStatusReport from "./components/Navbar/SaleReport/SaleStatusReport/BrandSaleStatusReport";
+import ItemCateSaleStatusReport from "./components/Navbar/SaleReport/SaleStatusReport/ItemCateSaleStatusReport";
+import BrandSaleStatus from "./components/Navbar/SaleReport/SaleStatusReport/BrandSaleStatus";
+import CateSaleStatus from "./components/Navbar/SaleReport/SaleStatusReport/CateSaleStatus";
+import PurchaseReportSummary from "./components/Navbar/PurchaseReport/PurchaseReportSummary";
+import ItemWisePurchaseReport from "./components/Navbar/PurchaseReport/ItemWisePurchaseReport";
+import DailyPurchaseReport from "./components/Navbar/PurchaseReport/DailyPurchaseReport";
+import SuppliersBalanceReport from "./components/Navbar/PurchaseReport/SuppliersBalanceReport";
+import PaymentReport from "./components/Navbar/PurchaseReport/PaymentReport";
+import BillWisePaymentReport from "./components/Navbar/PurchaseReport/BillWisePaymentReport";
+import "./App.css";
 
 function App() {
   return (
@@ -80,9 +85,6 @@ function App() {
               <Routes>
                 {/* Navbar items */}
                 <Route path="/" element={<Home />} />
-                <Route path="/data-entry" element={<DataEntry />} />
-                <Route path="/sale-report" element={<SaleReport />} />
-                <Route path="/purchase-report" element={<PurchaseReport />} />
                 <Route path="/inventory-report" element={<InventoryReport />} />
                 <Route path="/excise-report" element={<ExciseReport />} />
                 <Route path="/audit-accounts" element={<AuditAndAccounts />} />
@@ -121,113 +123,110 @@ function App() {
                 <Route path="/licensee-info" element={<LicenseeInfo />} />
 
                 {/* Data Entry Submenu items */}
-                <Route path="/sale-bill" element={<SaleBill />}>
-                  Sale Bill
-                </Route>
-                <Route path="/purchase-entry" element={<PurchaseEntry />}>
-                  Purchase Entry
-                </Route>
-                <Route path="/stock-transfer" element={<StockTransfer />}>
-                  Stock Transfer
-                </Route>
-                <Route path="/party-payment" element={<PartyPayment />}>
-                  Party Payment
-                </Route>
-                <Route path="/general-payment" element={<GeneralPayment />}>
-                  General Payment
-                </Route>
-                <Route path="/customer-receipt" element={<CustomerReceipt />}>
-                  Customer Receipt
-                </Route>
-                <Route path="/general-receipt" element={<GeneralReceipt />}>
-                  General Receipt
-                </Route>
-                <Route path="/cash-deposit" element={<CashDeposit />}>
-                  Cash Deposit to Bank
-                </Route>
-                <Route path="/cash-withdrawn" element={<CashWithdrawn />}>
-                  Cash Withdrawn from Bank
-                </Route>
-                <Route path="/journal-entry" element={<JournalEntry />}>
-                  JournalEntry
-                </Route>
+                <Route path="/sale-bill" element={<SaleBill />} />
+                <Route path="/purchase-entry" element={<PurchaseEntry />} />
+                <Route path="/stock-transfer" element={<StockTransfer />} />
+                <Route path="/party-payment" element={<PartyPayment />} />
+                <Route path="/general-payment" element={<GeneralPayment />} />
+                <Route path="/customer-receipt" element={<CustomerReceipt />} />
+                <Route path="/general-receipt" element={<GeneralReceipt />} />
+                <Route path="/cash-deposit" element={<CashDeposit />} />
+                <Route path="/cash-withdrawn" element={<CashWithdrawn />} />
+                <Route path="/journal-entry" element={<JournalEntry />} />
 
                 {/* Sale Report Submenu items */}
                 <Route
                   path="/sale-report-summary"
                   element={<SaleReportSummary />}
-                >
-                  Sale Report (Summary)
-                </Route>
+                />
                 <Route
                   path="/item-wise-sale-report"
                   element={<ItemWiseSaleReport />}
-                >
-                  Item Wise Sale Report
-                </Route>
-                <Route path="/daily-sale-report" element={<DailySaleReport />}>
-                  Daily Sale Report(DSR)
-                </Route>
+                />
+                <Route
+                  path="/daily-sale-report"
+                  element={<DailySaleReport />}
+                />
                 <Route
                   path="/daily-profit-report"
                   element={<DailyProfitReport />}
-                >
-                  Daily Profit Report
-                </Route>
+                />
+
+                {/* Sale Status Report Submenu items */}
                 <Route
-                  path="/sale-status-report"
-                  element={<SaleStatusReport />}
-                >
-                  Sale Status Report
-                </Route>
+                  path="/brand-wise-sale-status"
+                  element={<BrandSaleStatusReport />}
+                />
+                <Route
+                  path="/item-category-wise-sale-status"
+                  element={<ItemCateSaleStatusReport />}
+                />
+                <Route
+                  path="/brand-sale-status"
+                  element={<BrandSaleStatus />}
+                />
+                <Route
+                  path="/category-sale-status"
+                  element={<CateSaleStatus />}
+                />
                 <Route
                   path="/daily-item-sale-category"
                   element={<DailyItemSaleCategory />}
-                >
-                  Daily Item Sale Status (Category)
-                </Route>
+                />
                 <Route
                   path="/daily-item-sale-brand"
                   element={<DailyItemSaleBrand />}
-                >
-                  Daily Item Sale Status (Brand)
-                </Route>
-                <Route path="/daily-item-status" element={<DailyItemStatus />}>
-                  Daily Item Status
-                </Route>
+                />
+                <Route
+                  path="/daily-item-status"
+                  element={<DailyItemStatus />}
+                />
                 <Route
                   path="/customer-due-report"
                   element={<CustomerDueReport />}
-                >
-                  Customer Due Report
-                </Route>
-                <Route path="/salesman-report" element={<SalesmanReport />}>
-                  Salesman Report
-                </Route>
-                <Route path="/receipt-report" element={<ReceiptReport />}>
-                  Receipt Report
-                </Route>
+                />
+                <Route path="/salesman-report" element={<SalesmanReport />} />
+                <Route path="/receipt-report" element={<ReceiptReport />} />
                 <Route
                   path="/bill-wise-collection-report"
                   element={<BillWiseCollectionReport />}
-                >
-                  Bill Wise Collection Report
-                </Route>
+                />
                 <Route
                   path="/dealer-sale-discount-chart"
                   element={<DealerSaleDiscountChart />}
-                >
-                  Dealer Sale Discount Chart
-                </Route>
+                />
                 <Route
                   path="/customer-transaction-details"
                   element={<CustomerTransactionDetails />}
-                >
-                  Customer Transaction Details
-                </Route>
-                <Route path="/profit-on-sale" element={<ProfitOnSale />}>
-                  Profit On Sale
-                </Route>
+                />
+                <Route path="/profit-on-sale" element={<ProfitOnSale />} />
+
+
+                {/* Purchase Report Submenu items */}
+                <Route
+                  path="/purchase-report-summary"
+                  element={<PurchaseReportSummary />}
+                />
+                <Route
+                  path="/item-wise-purchase-report"
+                  element={<ItemWisePurchaseReport />}
+                />
+                <Route
+                  path="/daily-purchase-report"
+                  element={<DailyPurchaseReport />}
+                />
+                <Route
+                  path="/suppliers-balance-report"
+                  element={<SuppliersBalanceReport />}
+                />
+                <Route
+                  path="/payment-report"
+                  element={<PaymentReport />}
+                />
+                <Route
+                  path="/bill-wise-payment-report"
+                  element={<BillWisePaymentReport />}
+                />
 
                 {/* Sidebar items */}
                 <Route path="/daily-status" element={<DailyStatus />} />

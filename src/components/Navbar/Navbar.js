@@ -8,10 +8,16 @@ const Navbar = () => {
   const [isDataEntryDropdownOpen, setIsDataEntryDropdownOpen] = useState(false);
   const [isSaleReportDropdownOpen, setIsSaleReportDropdownOpen] =
     useState(false);
+  const [isSaleStatusReportDropdownOpen, setIsSaleStatusReportDropdownOpen] =
+    useState(false);
+  const [isPurchaseReportDropdownOpen, setIsPurchaseReportDropdownOpen] =
+    useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const masterFileDropdownRef = useRef(null);
   const dataEntryDropdownRef = useRef(null);
   const saleReportDropdownRef = useRef(null);
+  const saleStatusReportDropdownRef = useRef(null);
+  const purchaseReportDropdownRef = useRef(null);
 
   const toggleMasterFileDropdown = () => {
     setIsMasterFileDropdownOpen((prevState) => !prevState);
@@ -23,6 +29,14 @@ const Navbar = () => {
 
   const toggleSaleReportDropdown = () => {
     setIsSaleReportDropdownOpen((prevState) => !prevState);
+  };
+
+  const toggleSaleStatusReportDropdown = () => {
+    setIsSaleStatusReportDropdownOpen((prevState) => !prevState);
+  };
+
+  const togglePurchaseReportDropdown = () => {
+    setIsPurchaseReportDropdownOpen((prevState) => !prevState);
   };
 
   const toggleSidebar = () => {
@@ -48,6 +62,18 @@ const Navbar = () => {
         !saleReportDropdownRef.current.contains(event.target)
       ) {
         setIsSaleReportDropdownOpen(false);
+      }
+      if (
+        saleStatusReportDropdownRef.current &&
+        !saleStatusReportDropdownRef.current.contains(event.target)
+      ) {
+        setIsSaleStatusReportDropdownOpen(false);
+      }
+      if (
+        purchaseReportDropdownRef.current &&
+        !purchaseReportDropdownRef.current.contains(event.target)
+      ) {
+        setIsPurchaseReportDropdownOpen(false);
       }
     };
 
@@ -142,7 +168,29 @@ const Navbar = () => {
               <Link to="/item-wise-sale-report">Item Wise Sale Report</Link>
               <Link to="/daily-sale-report">Daily Sale Report (DSR)</Link>
               <Link to="/daily-profit-report">Daily Profit Report</Link>
-              <Link to="/sale-status-report">Sale Status Report</Link>
+              <li
+                className="nav-item dropdown"
+                ref={saleStatusReportDropdownRef}
+              >
+                <span className="" onClick={toggleSaleStatusReportDropdown}>
+                  Sale Status Report &nbsp;
+                  <i className="fas fa-caret-right"></i>
+                </span>
+                <div
+                  className={`sale-status-dropdown-content ${
+                    isSaleStatusReportDropdownOpen ? "open" : ""
+                  }`}
+                >
+                  <Link to="/brand-wise-sale-status">
+                    Brand Wise Sale Status
+                  </Link>
+                  <Link to="/item-category-wise-sale-status">
+                    Item Category Wise Sale Status
+                  </Link>
+                  <Link to="/brand-sale-status">Brand Sale Status</Link>
+                  <Link to="/category-sale-status">Category Sale Status</Link>
+                </div>
+              </li>
               <Link to="/daily-item-sale-category">
                 Daily Item Sale Status (Category)
               </Link>
@@ -165,11 +213,38 @@ const Navbar = () => {
               <Link to="/profit-on-sale">Profit On Sale</Link>
             </div>
           </li>
-          <li className="nav-item">
-            <Link to="/purchase-report" className="nav-link">
-              Purchase Report
-            </Link>
+
+          <li className="nav-item dropdown" ref={purchaseReportDropdownRef}>
+            <span
+              className="dropdown-toggle nav-link"
+              onClick={togglePurchaseReportDropdown}
+            >
+              Purchase Report <i className="fas fa-caret-down"></i>
+            </span>
+            <div
+              className={`dropdown-content ${
+                isPurchaseReportDropdownOpen ? "open" : ""
+              }`}
+            >
+              <Link to="/purchase-report-summary">
+                Purchase Report (Summary)
+              </Link>
+              <Link to="/item-wise-purchase-report">
+                Item Wise Purchase Report
+              </Link>
+              <Link to="/daily-purchase-report">
+                Daily Purchase Report (Dpr)
+              </Link>
+              <Link to="/suppliers-balance-report">
+                Suppliers Balance Report
+              </Link>
+              <Link to="/payment-report">Payment Report</Link>
+              <Link to="/bill-wise-payment-report">
+                Bill Wise Payment Report
+              </Link>
+            </div>
           </li>
+
           <li className="nav-item">
             <Link to="/inventory-report" className="nav-link">
               Inventory Report
