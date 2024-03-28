@@ -135,14 +135,14 @@ const BrandSaleStatusReport = () => {
 
         <TableContainer
           component={Paper}
-          sx={{ marginTop: 4, maxHeight: 300, overflowY: "auto" }}
+          sx={{ marginTop: 4, maxHeight: 300, overflow: "auto" }}
         >
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>S. No.</TableCell>
                 <TableCell>Items</TableCell>
-                {uptoMonth &&
+                {uptoMonth ? 
                   Array.from(
                     { length: monthOptions.indexOf(uptoMonth) + 1 },
                     (_, i) => {
@@ -150,7 +150,7 @@ const BrandSaleStatusReport = () => {
                       const month = monthOptions[monthIndex];
                       return <TableCell key={monthIndex}>{month}</TableCell>;
                     }
-                  ).reverse()}
+                  ).reverse() : ""}
                 <TableCell>Total</TableCell>
                 <TableCell>Average</TableCell>
               </TableRow>
@@ -158,15 +158,16 @@ const BrandSaleStatusReport = () => {
             <TableBody>
               {tableData.map((row, index) => (
                 <TableRow key={index}>
-                  <TableCell sx={{ padding: "4px" }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
+                      fullWidth
                       value={index + 1}
                       InputProps={{ readOnly: true }}
                     />
                   </TableCell>
 
-                  <TableCell sx={{ padding: "4px" }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.companyItems}
@@ -182,7 +183,7 @@ const BrandSaleStatusReport = () => {
                         const monthIndex = monthOptions.indexOf(uptoMonth) - i;
                         const cellValue = ""; 
                         return (
-                          <TableCell key={monthIndex} sx={{ padding: "4px" }}>
+                          <TableCell key={monthIndex} sx={{ padding: "8px" }}>
                             <TextField
                               size="small"
                               value={cellValue}
@@ -194,7 +195,7 @@ const BrandSaleStatusReport = () => {
                       }
                     ).reverse()}
 
-                  <TableCell sx={{ padding: "4px" }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.total || ""}
@@ -203,7 +204,7 @@ const BrandSaleStatusReport = () => {
                     />
                   </TableCell>
 
-                  <TableCell sx={{ padding: "4px" }}>
+                  <TableCell sx={{ padding: "8px" }}>
                     <TextField
                       size="small"
                       value={row.amt || ""}

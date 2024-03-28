@@ -24,12 +24,10 @@ const ProfitOnSale = () => {
   const [packing, setPacking] = useState("");
   const [itemCode, setItemCode] = useState("");
   const [selectedCustomer, setSelectedCustomer] = useState("");
-  const [bill, setBill] = useState("");
   const [dateFrom, setDateFrom] = useState("mm/dd/yyyy");
   const [dateTo, setDateTo] = useState("mm/dd/yyyy");
   const [filter1, setFilter1] = useState(null);
-  console.log("filter1: ", filter1);
-  const [onAccount, setOnAccount] = useState("");
+
   const [brandName, setBrandName] = useState("");
   const [categoryName, setCategoryName] = useState("");
   const [itemName, setItemName] = useState("");
