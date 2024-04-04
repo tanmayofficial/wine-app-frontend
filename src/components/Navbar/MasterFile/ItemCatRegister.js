@@ -7,13 +7,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { NotificationManager } from "react-notifications";
 import {
   createItemCategory,
   deleteItemCategory,
   getAllItemCategory,
   updateItemCategory,
 } from "../../../services/categoryService";
-import { NotificationManager } from "react-notifications";
 
 const ItemCatRegister = ({ loginResponse }) => {
   const [category, setCategory] = useState("");
@@ -25,19 +25,23 @@ const ItemCatRegister = ({ loginResponse }) => {
   const [existingCategoryDelete, setExistingCategoryDelete] = useState("");
   const [newCategory, setNewCategory] = useState("");
 
-  const handleClear = (input) => {
-    if (input === "create") {
-      setCategory("");
-      setIndexNo("");
-      setGroupName("");
-      setGroupNo("");
-    }
-    if (input === "update") {
-      setExistingCategoryUpdate("");
-      setNewCategory("");
-    }
-    if (input === "delete") {
-      setExistingCategoryDelete("");
+  const handleClear = (action) => {
+    switch (action) {
+      case "create":
+        setCategory("");
+        setIndexNo("");
+        setGroupName("");
+        setGroupNo("");
+        break;
+      case "update":
+        setExistingCategoryUpdate("");
+        setNewCategory("");
+        break;
+      case "delete":
+        setExistingCategoryDelete("");
+        break;
+      default:
+        break;
     }
   };
 
@@ -54,10 +58,9 @@ const ItemCatRegister = ({ loginResponse }) => {
         payload,
         loginResponse
       );
-      console.log("createCategoryResponse ---> ", createCategoryResponse);
       if (createCategoryResponse.status === 200) {
         NotificationManager.success("Category created successfully", "Success");
-        handleClear();
+        handleClear("create");
         fetchAllCategory();
       }
     } catch (err) {
@@ -78,16 +81,12 @@ const ItemCatRegister = ({ loginResponse }) => {
         existingCategoryUpdate,
         loginResponse
       );
-      console.log("updatedCategoryResponse ---> ", updatedCategoryResponse);
       if (updatedCategoryResponse.status === 200) {
-        NotificationManager.success("Category created successfully", "Success");
-        setNewCategory("");
-        setExistingCategoryUpdate("");
-        setExistingCategoryDelete("");
+        NotificationManager.success("Category updated successfully", "Success");
+        handleClear("update");
         fetchAllCategory();
       }
     } catch (err) {
-      console.log(err);
       NotificationManager.error(
         "Something went Wrong, Please try again later.",
         "Error"
@@ -108,16 +107,13 @@ const ItemCatRegister = ({ loginResponse }) => {
         existingCategoryDelete,
         loginResponse
       );
-      console.log("deleteCategoryResponse ---> ", deleteCategoryResponse);
 
       if (deleteCategoryResponse.status === 200) {
         NotificationManager.success("Category deleted successfully", "Success");
-        setExistingCategoryUpdate("");
-        setExistingCategoryDelete("");
+        handleClear("delete");
         fetchAllCategory();
       }
     } catch (err) {
-      console.log(err);
       NotificationManager.error(
         "Something went wrong. Please try again later.",
         "Error"
@@ -129,9 +125,7 @@ const ItemCatRegister = ({ loginResponse }) => {
     try {
       const getAllCategoryResponse = await getAllItemCategory(loginResponse);
       setAllCategory(getAllCategoryResponse?.data?.data);
-      console.log("getAllCategoryResponse ---> ", getAllCategoryResponse);
     } catch (err) {
-      console.log(err);
       NotificationManager.error(
         "Something went Wrong, Please try again later.",
         "Error"
@@ -141,7 +135,7 @@ const ItemCatRegister = ({ loginResponse }) => {
 
   useEffect(() => {
     fetchAllCategory();
-  }, []);
+  }, [loginResponse]);
 
   return (
     <form>
@@ -177,20 +171,11 @@ const ItemCatRegister = ({ loginResponse }) => {
               variant="outlined"
               onChange={(e) => setGroupName(e.target.value)}
             >
-              {[
-                "25 UP IML",
-                "50 UP Country Sprit",
-                "50 UP IML",
-                "60 UP IML",
-                "70 UP IML",
-                "80 UP Country Sprit",
-              ].map((item, id) => {
-                return (
-                  <MenuItem key={id} value={item}>
-                    {item}
-                  </MenuItem>
-                );
-              })}
+              {allCategory.map((item) => (
+                <MenuItem key={item._id} value={item.categoryName}>
+                  {item.categoryName}
+                </MenuItem>
+              ))}
             </TextField>
           </Grid>
 
@@ -244,7 +229,7 @@ const ItemCatRegister = ({ loginResponse }) => {
           </Box>
         </Grid>
 
-        <Typography variant="subtitle1" gutterBottom sx={{marginTop: 2}}>
+        <Typography variant="subtitle1" gutterBottom sx={{ marginTop: 2 }}>
           Update Category
         </Typography>
         <Grid container spacing={2}>
@@ -292,7 +277,7 @@ const ItemCatRegister = ({ loginResponse }) => {
               Change
             </Button>
             <Button
-              color="error"
+              color="warning"
               size="large"
               variant="outlined"
               onClick={() => handleClear("update")}
@@ -302,7 +287,7 @@ const ItemCatRegister = ({ loginResponse }) => {
           </Box>
         </Grid>
 
-        <Typography variant="subtitle1" gutterBottom sx={{marginTop: 2}}>
+        <Typography variant="subtitle1" gutterBottom sx={{ marginTop: 2 }}>
           Delete Category
         </Typography>
         <Grid container spacing={2}>
@@ -340,7 +325,7 @@ const ItemCatRegister = ({ loginResponse }) => {
               Delete
             </Button>
             <Button
-              color="error"
+              color="warning"
               size="large"
               variant="outlined"
               onClick={() => handleClear("delete")}
