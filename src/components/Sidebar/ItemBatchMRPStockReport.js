@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-const StockReport = () => {
+const ItemBatchMRPStockReport = () => {
   const [selectOptions, setselectOptions] = useState(null);
 
   const [filterData, setFilterData] = useState({
@@ -558,4 +558,4 @@ const StockReport = () => {
   );
 };
 
-export default StockReport;
+export default ItemBatchMRPStockReport;

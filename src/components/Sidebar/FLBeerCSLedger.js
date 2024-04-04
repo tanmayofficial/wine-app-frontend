@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-const FLBeerCSLedgerSummary = () => {
+const FLBeerCSLedger = () => {
   const [selectedGroup, setSelectedGroup] = useState("");
   const [dateFrom, setDateFrom] = useState("mm/dd/yyyy");
   const [dateTo, setDateTo] = useState("mm/dd/yyyy");
@@ -281,4 +281,4 @@ const FLBeerCSLedgerSummary = () => {
   );
 };
 
-export default FLBeerCSLedgerSummary;
+export default FLBeerCSLedger;
