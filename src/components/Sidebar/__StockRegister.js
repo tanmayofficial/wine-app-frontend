@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import dayjs from "dayjs";
 
-const StockRegister = () => {
+const __StockRegister = () => {
   const [value, setValue] = useState([
     dayjs("2024-04-17"),
     dayjs("2024-04-21"),
@@ -619,4 +619,4 @@ const StockRegister = () => {
   );
 };
 
-export default StockRegister;
+export default __StockRegister;

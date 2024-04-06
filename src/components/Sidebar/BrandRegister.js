@@ -9,119 +9,143 @@ import {
 } from "@mui/material";
 import { NotificationManager } from "react-notifications";
 import {
-  createStore,
-  updateStore,
-  getAllStores,
-  deleteStore,
-} from "../../../services/storeService";
-import { useLoginContext } from "../../../utils/loginContext";
+  createBrand,
+  deleteBrand,
+  getAllBrands,
+  updateBrand,
+} from "../../services/brandService";
+import { useLoginContext } from "../../utils/loginContext";
 
-const StoreInfo = () => {
+const BrandRegister = () => {
   const { loginResponse } = useLoginContext();
-  const [storeName, setStoreName] = useState("");
+  const [brandName, setBrandName] = useState("");
   const [type, setType] = useState("");
   const [indexNo, setIndexNo] = useState("");
-  const [allStores, setAllStores] = useState([]);
-  const [existingStoreUpdate, setExistingStoreUpdate] = useState("");
-  const [newStoreName, setNewStoreName] = useState("");
-  const [existingStoreDelete, setExistingStoreDelete] = useState("");
+  const [allBrands, setAllBrands] = useState([]);
+  const [existingBrandUpdate, setExistingBrandUpdate] = useState("");
+  const [newBrandName, setNewBrandName] = useState("");
+  const [existingBrandDelete, setExistingBrandDelete] = useState("");
 
   const clearForm = () => {
-    setStoreName("");
+    setBrandName("");
     setType("");
     setIndexNo("");
   };
 
-  const handleCreateStore = async () => {
+  const handleCreateBrand = async () => {
     const payload = {
-      name: storeName,
+      name: brandName,
       type: type,
       indexNo: indexNo,
     };
     try {
-      const createStoreResponse = await createStore(payload, loginResponse);
-      NotificationManager.success("Store created successfully", "Success");
-      console.log("Store created successfully:", createStoreResponse);
-      clearForm();
-      fetchAllStores();
+      const createBrandResponse = await createBrand(payload, loginResponse);
+      if (createBrandResponse.status === 200) {
+        NotificationManager.success("Brand created successfully", "Success");
+        console.log("Brand created successfully:", createBrandResponse);
+        clearForm();
+        fetchAllBrands();
+      } else {
+        NotificationManager.error(
+          "Error creating brand. Please try again later.",
+          "Error"
+        );
+        console.error("Error creating brand:", createBrandResponse);
+      }
     } catch (error) {
       NotificationManager.error(
-        "Error creating store. Please try again later.",
+        "Error creating brand. Please try again later.",
         "Error"
       );
-      console.error("Error creating store:", error);
+      console.error("Error creating brand:", error);
     }
   };
 
-  const handleUpdateStore = async () => {
+  const handleUpdateBrand = async () => {
     const payload = {
-      name: newStoreName,
+      name: newBrandName,
     };
     try {
-      const updateStoreResponse = await updateStore(
+      const updateBrandResponse = await updateBrand(
         payload,
-        existingStoreUpdate,
+        existingBrandUpdate,
         loginResponse
       );
-      NotificationManager.success("Store updated successfully", "Success");
-      console.log("Store updated successfully:", updateStoreResponse);
-      setExistingStoreUpdate("");
-      setNewStoreName("");
-      fetchAllStores();
+      if (updateBrandResponse.status === 200) {
+        NotificationManager.success("Brand updated successfully", "Success");
+        console.log("Brand updated successfully:", updateBrandResponse);
+        setExistingBrandUpdate("");
+        setNewBrandName("");
+        fetchAllBrands();
+      } else {
+        NotificationManager.error(
+          "Error updating brand. Please try again later.",
+          "Error"
+        );
+        console.error("Error updating brand:", updateBrandResponse);
+      }
     } catch (error) {
       NotificationManager.error(
-        "Error updating store. Please try again later.",
+        "Error updating brand. Please try again later.",
         "Error"
       );
-      console.error("Error updating store:", error);
+      console.error("Error updating brand:", error);
     }
   };
 
-  const handleDeleteStore = async () => {
+  const handleDeleteBrand = async () => {
     try {
-      const deleteStoreResponse = await deleteStore(
-        existingStoreDelete,
+      const deleteBrandResponse = await deleteBrand(
+        existingBrandDelete,
         loginResponse
       );
-      NotificationManager.success("Store deleted successfully", "Success");
-      console.log("Store deleted successfully:", deleteStoreResponse);
-      setExistingStoreDelete("");
-      fetchAllStores();
+      if (deleteBrandResponse.status === 200) {
+        NotificationManager.success("Brand deleted successfully", "Success");
+        console.log("Brand deleted successfully:", deleteBrandResponse);
+        setExistingBrandDelete("");
+        fetchAllBrands();
+      } else {
+        NotificationManager.error(
+          "Error deleting brand. Please try again later.",
+          "Error"
+        );
+        console.error("Error deleting brand:", deleteBrandResponse);
+      }
     } catch (error) {
       NotificationManager.error(
-        "Error deleting store. Please try again later.",
+        "Error deleting brand. Please try again later.",
         "Error"
       );
-      console.error("Error deleting store:", error);
+      console.error("Error deleting brand:", error);
     }
   };
 
-  const fetchAllStores = async () => {
+  const fetchAllBrands = async () => {
     try {
-      const allStoresResponse = await getAllStores(loginResponse);
-      console.log("allStoresResponse ---> ", allStoresResponse);
-      setAllStores(allStoresResponse?.data?.data);
+      const allBrandsResponse = await getAllBrands(loginResponse);
+      console.log("allBrandsResponse ---> ", allBrandsResponse);
+      setAllBrands(allBrandsResponse?.data?.data);
     } catch (error) {
       NotificationManager.error(
-        "Error fetching stores. Please try again later.",
+        "Error fetching brands. Please try again later.",
         "Error"
       );
-      console.error("Error fetching stores:", error);
+      console.error("Error fetching brands:", error);
     }
   };
 
   useEffect(() => {
-    fetchAllStores();
+    fetchAllBrands();
   }, []);
 
   return (
     <form>
       <Box sx={{ p: 2, width: "900px" }}>
         <Typography variant="h5" component="div" gutterBottom>
-          Store Information
+          Brand Information
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          Store Details
+          Brand Details
         </Typography>
 
         <Grid container spacing={2}>
@@ -129,11 +153,11 @@ const StoreInfo = () => {
             <TextField
               fullWidth
               type="text"
-              name="storeName"
-              label="Name of Store"
+              name="brandName"
+              label="Name of Brand"
               variant="outlined"
-              value={storeName}
-              onChange={(e) => setStoreName(e.target.value)}
+              value={brandName}
+              onChange={(e) => setBrandName(e.target.value)}
             />
           </Grid>
 
@@ -147,9 +171,9 @@ const StoreInfo = () => {
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
-              <MenuItem value="Seller">Seller</MenuItem>
-              <MenuItem value="Buyer">Buyer</MenuItem>
-              <MenuItem value="Distributor">Distributor</MenuItem>
+              <MenuItem value="Type1">Type1</MenuItem>
+              <MenuItem value="Type2">Type2</MenuItem>
+              <MenuItem value="Type3">Type3</MenuItem>
             </TextField>
           </Grid>
 
@@ -175,7 +199,7 @@ const StoreInfo = () => {
               color="primary"
               size="large"
               variant="outlined"
-              onClick={handleCreateStore}
+              onClick={handleCreateBrand}
             >
               Create
             </Button>
@@ -191,16 +215,16 @@ const StoreInfo = () => {
         </Grid>
 
         <Typography variant="subtitle1" gutterBottom sx={{ marginTop: 2 }}>
-          Update Store
+          Update Brand
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <TextField
               select
               fullWidth
-              name="existingStoreUpdate"
-              label="Existing Store"
-              value={existingStoreUpdate}
+              name="existingBrandUpdate"
+              label="Existing Brand"
+              value={existingBrandUpdate}
               variant="outlined"
               SelectProps={{
                 MenuProps: {
@@ -211,11 +235,11 @@ const StoreInfo = () => {
                   },
                 },
               }}
-              onChange={(e) => setExistingStoreUpdate(e.target.value)}
+              onChange={(e) => setExistingBrandUpdate(e.target.value)}
             >
-              {allStores.map((store) => (
-                <MenuItem key={store._id} value={store._id}>
-                  {store.name}
+              {allBrands?.map((brand) => (
+                <MenuItem key={brand._id} value={brand._id}>
+                  {brand.name}
                 </MenuItem>
               ))}
             </TextField>
@@ -225,11 +249,11 @@ const StoreInfo = () => {
             <TextField
               fullWidth
               type="text"
-              name="newStoreName"
-              label="New Store Name"
-              value={newStoreName}
+              name="newBrandName"
+              label="New Brand Name"
+              value={newBrandName}
               variant="outlined"
-              onChange={(e) => setNewStoreName(e.target.value)}
+              onChange={(e) => setNewBrandName(e.target.value)}
             />
           </Grid>
           <Box
@@ -243,7 +267,7 @@ const StoreInfo = () => {
               color="primary"
               size="large"
               variant="outlined"
-              onClick={handleUpdateStore}
+              onClick={handleUpdateBrand}
             >
               Change
             </Button>
@@ -252,8 +276,8 @@ const StoreInfo = () => {
               size="large"
               variant="outlined"
               onClick={() => {
-                setExistingStoreUpdate("");
-                setNewStoreName("");
+                setExistingBrandUpdate("");
+                setNewBrandName("");
               }}
             >
               Clear
@@ -262,16 +286,16 @@ const StoreInfo = () => {
         </Grid>
 
         <Typography variant="subtitle1" gutterBottom sx={{ marginTop: 2 }}>
-          Delete Store
+          Delete Brand
         </Typography>
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <TextField
               select
               fullWidth
-              name="existingStoreDelete"
-              label="Existing Store"
-              value={existingStoreDelete}
+              name="existingBrandDelete"
+              label="Existing Brand"
+              value={existingBrandDelete}
               variant="outlined"
               SelectProps={{
                 MenuProps: {
@@ -282,11 +306,11 @@ const StoreInfo = () => {
                   },
                 },
               }}
-              onChange={(e) => setExistingStoreDelete(e.target.value)}
+              onChange={(e) => setExistingBrandDelete(e.target.value)}
             >
-              {allStores.map((store) => (
-                <MenuItem key={store._id} value={store._id}>
-                  {store.name}
+              {allBrands?.map((brand) => (
+                <MenuItem key={brand._id} value={brand._id}>
+                  {brand.name}
                 </MenuItem>
               ))}
             </TextField>
@@ -302,7 +326,7 @@ const StoreInfo = () => {
               color="primary"
               size="large"
               variant="outlined"
-              onClick={handleDeleteStore}
+              onClick={handleDeleteBrand}
             >
               Delete
             </Button>
@@ -310,7 +334,7 @@ const StoreInfo = () => {
               color="warning"
               size="large"
               variant="outlined"
-              onClick={() => setExistingStoreDelete("")}
+              onClick={() => setExistingBrandDelete("")}
             >
               Clear
             </Button>
@@ -321,4 +345,4 @@ const StoreInfo = () => {
   );
 };
 
-export default StoreInfo;
+export default BrandRegister;

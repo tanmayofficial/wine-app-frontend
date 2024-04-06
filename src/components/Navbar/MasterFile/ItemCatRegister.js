@@ -14,8 +14,10 @@ import {
   getAllItemCategory,
   updateItemCategory,
 } from "../../../services/categoryService";
+import { useLoginContext } from "../../../utils/loginContext";
 
-const ItemCatRegister = ({ loginResponse }) => {
+const ItemCatRegister = () => {
+  const { loginResponse } = useLoginContext();
   const [category, setCategory] = useState("");
   const [allCategory, setAllCategory] = useState([]);
   const [indexNo, setIndexNo] = useState("");
@@ -24,6 +26,15 @@ const ItemCatRegister = ({ loginResponse }) => {
   const [existingCategoryUpdate, setExistingCategoryUpdate] = useState("");
   const [existingCategoryDelete, setExistingCategoryDelete] = useState("");
   const [newCategory, setNewCategory] = useState("");
+  const groupOptions = [
+    "All",
+    "Beer",
+    "Country Sprit",
+    "Foreign Liquor",
+    "India Made Liquor",
+  ];
+
+  console.log("existingCategoryUpdate : ",existingCategoryUpdate)
 
   const handleClear = (action) => {
     switch (action) {
@@ -135,7 +146,7 @@ const ItemCatRegister = ({ loginResponse }) => {
 
   useEffect(() => {
     fetchAllCategory();
-  }, [loginResponse]);
+  }, []);
 
   return (
     <form>
@@ -171,9 +182,9 @@ const ItemCatRegister = ({ loginResponse }) => {
               variant="outlined"
               onChange={(e) => setGroupName(e.target.value)}
             >
-              {allCategory.map((item) => (
-                <MenuItem key={item._id} value={item.categoryName}>
-                  {item.categoryName}
+              {groupOptions.map((item, id) => (
+                <MenuItem key={id} value={item}>
+                  {item}
                 </MenuItem>
               ))}
             </TextField>

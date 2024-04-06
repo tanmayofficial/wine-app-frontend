@@ -19,6 +19,18 @@ const Sidebar = () => {
         </div>
         <hr />
         <div className="sidebar-item">
+          <Link to="/brand-register" className="nav-link">
+            Brand Register
+          </Link>
+        </div>
+        <hr />
+        <div className="sidebar-item">
+          <Link to="/company-register" className="nav-link">
+            Company Register
+          </Link>
+        </div>
+        <hr />
+        <div className="sidebar-item">
           <Link to="/previous-year-dsr" className="nav-link">
             Previous Year DSR
           </Link>

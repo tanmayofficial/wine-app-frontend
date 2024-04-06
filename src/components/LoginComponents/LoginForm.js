@@ -42,7 +42,7 @@ function LoginForm({ handleLogin }) {
         password,
       });
       handleLogin(email);
-      console.log("response signin: ", response);
+      console.log("response login: ", response);
       NotificationManager.success("Login successful.", "Success");
       navigate("/");
       setLoginResponse(response?.data?.data);

@@ -10,7 +10,6 @@ import Utilities from "./components/Utilities/Utilities";
 import CustomerRegister from "./components/Navbar/MasterFile/CustomerRegister";
 import SuppliersRegister from "./components/Navbar/MasterFile/SuppliersRegister";
 import LPLSetup from "./components/Navbar/MasterFile/LPLSetup";
-import StockRegister from "./components/Sidebar/StockRegister";
 import ItemCatRegister from "./components/Navbar/MasterFile/ItemCatRegister";
 import ItemDiscountRegister from "./components/Navbar/MasterFile/ItemDiscountRegister";
 import DealerCatDiscRegister from "./components/Navbar/MasterFile/DealerCatDiscRegister";
@@ -69,14 +68,17 @@ import DsrBrandStock from "./components/Sidebar/DsrBrandStock";
 import CatLedgerPack from "./components/Sidebar/CatLedgerPack";
 import GtinStock from "./components/Sidebar/GtinStock";
 import { useLoginContext } from "./utils/loginContext";
+import BrandRegister from "./components/Sidebar/BrandRegister";
+import CompanyRegister from "./components/Sidebar/CompanyRegister";
+import ItemRegister from "./components/Navbar/MasterFile/StockRegister";
+
 
 const AppRoutes = ({
   authenticatedUser,
   handleLogin,
   handleSignUp,
-  setLoginResponse,
 }) => {
-  const { loginResponse } = useLoginContext();
+  const { loginResponse, setLoginResponse } = useLoginContext();
   return (
     <Routes>
       <Route
@@ -120,8 +122,8 @@ const AppRoutes = ({
       <Route path="/customer-register" element={<CustomerRegister />} />
       <Route path="/suppliers-register" element={<SuppliersRegister />} />
       <Route path="/lpl-setup" element={<LPLSetup />} />
-      <Route path="/stock-register" element={<StockRegister />} />
-      <Route path="/item-category-register" element={<ItemCatRegister loginResponse={loginResponse} />} />
+      <Route path="/stock-register" element={<ItemRegister />} />
+      <Route path="/item-category-register" element={<ItemCatRegister />} />
       <Route
         path="/item-discount-register"
         element={<ItemDiscountRegister />}
@@ -210,7 +212,8 @@ const AppRoutes = ({
 
       {/* Sidebar items */}
       <Route path="/daily-status" element={<DailyStatus />} />
-      <Route path="/stock-register" element={<StockRegister />} />
+      <Route path="/brand-register" element={<BrandRegister />} />
+      <Route path="/company-register" element={<CompanyRegister />} />
       <Route path="/previous-year-dsr" element={<PreviousYearDSR />} />
       <Route
         path="/fl-beer-cs/ledger-summary"
