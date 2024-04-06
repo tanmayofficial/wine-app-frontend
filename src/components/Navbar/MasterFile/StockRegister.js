@@ -1,4 +1,3 @@
-// ItemRegister.js
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -51,35 +50,21 @@ const ItemRegister = () => {
     setGroup("");
     setCaseValue("");
   };
-  /*
-{
-    "name" : "ddd",
-    "description" : "this is keywoard",
-    "categoryId" : "660d1e9ffc4fd9e12d0d8a76",
-    "subCategory" : "SS",
-    "companyId" : "660f91cfb4aa982f7706545a",
-    "brandId" : "660e93c547ccef656fe8888a",
-    "group" : "group1",
-    "volume" : 20,
-    "caseValue" : 20
-}
-*/
+
   const handleCreateItem = async () => {
-    if (
-      !name ||
-      !description ||
-      !categoryId ||
-      !subCategory ||
-      !companyId ||
-      !brandId ||
-      !group ||
-      !volume ||
-      !caseValue
-    ) {
-      NotificationManager.warning(
-        "Please fill in all fields.",
-        "Error"
-      );
+    const mandatoryFields = [
+      name,
+      description,
+      categoryId,
+      subCategory,
+      companyId,
+      brandId,
+      group,
+      volume,
+      caseValue,
+    ];
+    if (mandatoryFields.some((field) => !field)) {
+      NotificationManager.warning("Please fill in all fields.", "Error");
       return;
     }
 
@@ -94,6 +79,7 @@ const ItemRegister = () => {
       volume,
       caseValue,
     };
+
     try {
       const createItemResponse = await createItem(payload, loginResponse);
       if (createItemResponse.status === 200) {
@@ -115,16 +101,11 @@ const ItemRegister = () => {
   };
 
   const handleUpdateItem = async () => {
-    if (
-      !newItemName 
-    ) {
-      NotificationManager.warning(
-        "Please fill New Item Name.",
-        "Error"
-      );
+    if (!newItemName) {
+      NotificationManager.warning("Please fill New Item Name.", "Error");
       return;
     }
-    
+
     const payload = {
       name: newItemName,
     };
