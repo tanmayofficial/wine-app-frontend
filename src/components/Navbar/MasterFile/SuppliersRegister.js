@@ -1,96 +1,186 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
   TextField,
   Typography,
-  MenuItem,
   Grid,
+  MenuItem,
 } from "@mui/material";
+import {
+  getAllSuppliers,
+  createSupplier,
+  updateSupplier,
+  deleteSupplier,
+} from "../../../services/supplierService";
+import { NotificationManager } from "react-notifications";
+import { useLoginContext } from "../../../utils/loginContext";
 
 const SuppliersRegister = () => {
-  const suppliersData = {
-    "suppliers": [
-      {
-        "supName": "ABC Corporation",
-        "contactPersons": "John Doe",
-        "address": "123 Main Street, Anytown, USA",
-        "mobileNo": "123-456-7890",
-        "gstIn": "GSTIN123",
-        "cinNo": "CIN123",
-        "openingBalance": 5000,
-        "tcsCalculation": 10
-      },
-      {
-        "supName": "XYZ Enterprises",
-        "contactPersons": "Jane Smith",
-        "address": "456 Elm Street, Othertown, USA",
-        "mobileNo": "987-654-3210",
-        "gstIn": "GSTIN456",
-        "cinNo": "CIN456",
-        "openingBalance": 8000,
-        "tcsCalculation": 15
-      },
-      {
-        "supName": "PQR Industries",
-        "contactPersons": "Alice Johnson",
-        "address": "789 Oak Street, Anycity, USA",
-        "mobileNo": "555-123-4567",
-        "gstIn": "GSTIN789",
-        "cinNo": "CIN789",
-        "openingBalance": 3000,
-        "tcsCalculation": 8
-      },
-      {
-        "supName": "LMN Ltd.",
-        "contactPersons": "Bob Brown",
-        "address": "321 Pine Street, Otherville, USA",
-        "mobileNo": "444-987-6543",
-        "gstIn": "GSTIN321",
-        "cinNo": "CIN321",
-        "openingBalance": 10000,
-        "tcsCalculation": 12
-      }
-    ]
-  };
+  const { loginResponse } = useLoginContext();
 
   const [formData, setFormData] = useState({
     supName: "",
-    contactPersons: "",
     address: "",
     mobileNo: "",
-    gstIn: "",
+    gstinNo: "",
+    panNo: "",
     cinNo: "",
     openingBalance: "",
-    tcsCalculation: "",
   });
 
-  const handleFormChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
+  const [newFormData, setNewFormData] = useState({
+    supName: "",
+    address: "",
+    mobileNo: "",
+    gstinNo: "",
+    panNo: "",
+    cinNo: "",
+    openingBalance: "",
+  });
+
+  const [allSuppliers, setAllSuppliers] = useState([]);
+  const [existingSupplierUpdate, setExistingSupplierUpdate] = useState("");
+  const [existingSupplierDelete, setExistingSupplierDelete] = useState("");
+
+  const clearForm = () => {
+    setFormData({
+      supName: "",
+      address: "",
+      mobileNo: "",
+      gstinNo: "",
+      panNo: "",
+      cinNo: "",
+      openingBalance: "",
+    });
+  };
+
+  const handleSupplierChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
       [name]: value,
     }));
   };
 
-  const handleSupplierChange = (event) => {
-    const selectedSupplierName = event.target.value;
-    const selectedSupplier = suppliersData.suppliers.find(
-      (supplier) => supplier.supName === selectedSupplierName
-    );
-    if (selectedSupplier) {
-      setFormData({
-        supName: selectedSupplier.supName,
-        contactPersons: selectedSupplier.contactPersons,
-        address: selectedSupplier.address,
-        mobileNo: selectedSupplier.mobileNo,
-        gstIn: selectedSupplier.gstIn,
-        cinNo: selectedSupplier.cinNo,
-        openingBalance: selectedSupplier.openingBalance,
-        tcsCalculation: selectedSupplier.tcsCalculation,
-      });
+  const handleCreateSupplier = async () => {
+    const payload = {
+      name: formData.supName,
+      address: formData.address,
+      contactNo: formData.mobileNo,
+      gstinNo: formData.gstinNo,
+      panNo: formData.panNo,
+      cinNo: formData.cinNo,
+      openingBlance: formData.openingBalance,
+    };
+
+    try {
+      const createSupplierResponse = await createSupplier(
+        payload,
+        loginResponse
+      );
+      if (createSupplierResponse.status === 200) {
+        NotificationManager.success("Supplier created successfully", "Success");
+        clearForm();
+        fetchAllSuppliers();
+      } else {
+        NotificationManager.error(
+          "Error creating Supplier. Please try again later.",
+          "Error"
+        );
+      }
+    } catch (error) {
+      NotificationManager.error(
+        "Error creating Supplier. Please try again later.",
+        "Error"
+      );
     }
   };
+
+  const handleUpdateSupplier = async () => {
+    if (!existingSupplierUpdate) {
+      NotificationManager.warning(
+        "Please select a supplier to update.",
+        "Error"
+      );
+      return;
+    }
+
+    const payload = {
+      name: newFormData.supName,
+      address: newFormData.address,
+      contactNo: newFormData.mobileNo,
+      gstinNo: newFormData.gstinNo,
+      panNo: newFormData.panNo,
+      cinNo: newFormData.cinNo,
+      openingBlance: newFormData.openingBalance,
+    };
+
+    try {
+      const updateItemResponse = await updateSupplier(
+        payload,
+        existingSupplierUpdate,
+        loginResponse
+      );
+      if (updateItemResponse.status === 200) {
+        NotificationManager.success("Supplier updated successfully", "Success");
+        setExistingSupplierUpdate("");
+        fetchAllSuppliers();
+      } else {
+        NotificationManager.error(
+          "Error updating supplier. Please try again later.",
+          "Error"
+        );
+      }
+    } catch (error) {
+      NotificationManager.error(
+        "Error updating supplier. Please try again later.",
+        "Error"
+      );
+    }
+  };
+  
+
+  const handleDeleteSupplier = async () => {
+    try {
+      const deleteItemResponse = await deleteSupplier(
+        existingSupplierDelete,
+        loginResponse
+      );
+      if (deleteItemResponse.status === 200) {
+        NotificationManager.success("Item deleted successfully", "Success");
+        setExistingSupplierDelete("");
+        fetchAllSuppliers();
+      } else {
+        NotificationManager.error(
+          "Error deleting item. Please try again later.",
+          "Error"
+        );
+      }
+    } catch (error) {
+      NotificationManager.error(
+        "Error deleting item. Please try again later.",
+        "Error"
+      );
+    }
+  };
+
+  const fetchAllSuppliers = async () => {
+    try {
+      const allItemsResponse = await getAllSuppliers(loginResponse);
+      console.log("allItemsResponse: ", allItemsResponse);
+      setAllSuppliers(allItemsResponse?.data?.data);
+    } catch (error) {
+      NotificationManager.error(
+        "Error fetching suppliers. Please try again later.",
+        "Error"
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchAllSuppliers();
+  }, []);
 
   return (
     <form>
@@ -105,7 +195,6 @@ const SuppliersRegister = () => {
         <Grid container spacing={2}>
           <Grid item xs={3}>
             <TextField
-              select
               name="supName"
               label="Name of Supplier/Company"
               variant="outlined"
@@ -113,25 +202,9 @@ const SuppliersRegister = () => {
               className="form-field"
               value={formData.supName}
               onChange={handleSupplierChange}
-            >
-              {suppliersData.suppliers.map((supplier) => (
-                <MenuItem key={supplier.supName} value={supplier.supName}>
-                  {supplier.supName}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              name="contactPersons"
-              label="Contact Persons"
-              variant="outlined"
-              fullWidth
-              className="form-field"
-              value={formData.contactPersons}
-              onChange={handleFormChange}
             />
           </Grid>
+
           <Grid item xs={3}>
             <TextField
               name="address"
@@ -140,45 +213,51 @@ const SuppliersRegister = () => {
               fullWidth
               className="form-field"
               value={formData.address}
-              onChange={handleFormChange}
+              onChange={handleSupplierChange}
             />
           </Grid>
-
           <Grid item xs={3}>
             <TextField
               name="mobileNo"
-              label="Mobile No."
+              label="Mobile Number"
               variant="outlined"
               fullWidth
               className="form-field"
-              type="number"
               value={formData.mobileNo}
-              onChange={handleFormChange}
+              onChange={handleSupplierChange}
             />
           </Grid>
           <Grid item xs={3}>
             <TextField
-              name="gstIn"
-              label="GSTIN"
+              name="gstinNo"
+              label="GSTIN Number"
               variant="outlined"
               fullWidth
               className="form-field"
-              type="number"
-              value={formData.gstIn}
-              onChange={handleFormChange}
+              value={formData.gstinNo}
+              onChange={handleSupplierChange}
             />
           </Grid>
-
+          <Grid item xs={3}>
+            <TextField
+              name="panNo"
+              label="PAN Number"
+              variant="outlined"
+              fullWidth
+              className="form-field"
+              value={formData.panNo}
+              onChange={handleSupplierChange}
+            />
+          </Grid>
           <Grid item xs={3}>
             <TextField
               name="cinNo"
-              label="CIN No."
+              label="CIN Number"
               variant="outlined"
               fullWidth
               className="form-field"
-              type="number"
               value={formData.cinNo}
-              onChange={handleFormChange}
+              onChange={handleSupplierChange}
             />
           </Grid>
           <Grid item xs={3}>
@@ -188,60 +267,246 @@ const SuppliersRegister = () => {
               variant="outlined"
               fullWidth
               className="form-field"
-              type="number"
-              inputProps={{ min: 0 }}
               value={formData.openingBalance}
-              onChange={handleFormChange}
+              onChange={handleSupplierChange}
             />
           </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              "& button": { marginTop: 2, marginLeft: 2 },
+            }}
+          >
+            <Button
+              color="primary"
+              size="large"
+              variant="outlined"
+              onClick={handleCreateSupplier}
+            >
+              Create
+            </Button>
+            <Button
+              color="warning"
+              size="large"
+              variant="outlined"
+              onClick={clearForm}
+            >
+              Clear
+            </Button>
+          </Box>
+        </Grid>
+
+        <Typography variant="subtitle1" gutterBottom sx={{ marginTop: 2 }}>
+          Update Supplier
+        </Typography>
+        <Grid container spacing={2}>
           <Grid item xs={3}>
             <TextField
-              name="tcsCalculation"
-              label="TCS Calculation"
-              variant="outlined"
+              select
               fullWidth
-              className="form-field"
-              type="number"
-              value={formData.tcsCalculation}
-              onChange={handleFormChange}
-            />
+              name="existingSupplierUpdate"
+              label="Existing Supplier"
+              value={existingSupplierUpdate}
+              variant="outlined"
+              SelectProps={{
+                MenuProps: {
+                  PaperProps: {
+                    style: {
+                      maxHeight: 200,
+                    },
+                  },
+                },
+              }}
+              onChange={(e) => setExistingSupplierUpdate(e.target.value)}
+            >
+              {allSuppliers?.map((item) => (
+                <MenuItem key={item._id} value={item._id}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
+
+          {existingSupplierUpdate && (
+            <>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  name="newSupplierName"
+                  label="New Supplier Name"
+                  value={newFormData.supName}
+                  variant="outlined"
+                  onChange={(e) =>
+                    setNewFormData({ ...newFormData, supName: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  name="address"
+                  label="Address"
+                  value={newFormData.address}
+                  variant="outlined"
+                  onChange={(e) =>
+                    setNewFormData({ ...newFormData, address: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  name="mobileNo"
+                  label="Mobile Number"
+                  value={newFormData.mobileNo}
+                  variant="outlined"
+                  onChange={(e) =>
+                    setNewFormData({ ...newFormData, mobileNo: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  name="gstinNo"
+                  label="GSTIN Number"
+                  value={newFormData.gstinNo}
+                  variant="outlined"
+                  onChange={(e) =>
+                    setNewFormData({ ...newFormData, gstinNo: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  name="panNo"
+                  label="PAN Number"
+                  value={newFormData.panNo}
+                  variant="outlined"
+                  onChange={(e) =>
+                    setNewFormData({ ...newFormData, panNo: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  name="cinNo"
+                  label="CIN Number"
+                  value={newFormData.cinNo}
+                  variant="outlined"
+                  onChange={(e) =>
+                    setNewFormData({ ...newFormData, cinNo: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  fullWidth
+                  type="text"
+                  name="openingBalance"
+                  label="Opening Balance"
+                  value={newFormData.openingBalance}
+                  variant="outlined"
+                  onChange={(e) =>
+                    setNewFormData({ ...newFormData, openingBalance: e.target.value })
+                  }
+                />
+              </Grid>
+            </>
+          )}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              "& button": { marginTop: 2, marginLeft: 2 },
+            }}
+          >
+            <Button
+              color="primary"
+              size="large"
+              variant="outlined"
+              onClick={handleUpdateSupplier}
+            >
+              Change
+            </Button>
+            <Button
+              color="warning"
+              size="large"
+              variant="outlined"
+              onClick={() => {
+                setExistingSupplierUpdate("");
+                
+              }}
+            >
+              Clear
+            </Button>
+          </Box>
         </Grid>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginTop: "10px",
-          }}
-        >
-          <Button
-            color="primary"
-            size="large"
-            variant="outlined"
-            onClick={() => {}}
-            sx={{ marginTop: 3, marginRight: 2 }}
+
+        <Typography variant="subtitle1" gutterBottom sx={{ marginTop: 2 }}>
+          Delete Supplier
+        </Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={3}>
+            <TextField
+              select
+              fullWidth
+              name="existingSupplierDelete"
+              label="Existing Supplier"
+              value={existingSupplierDelete}
+              variant="outlined"
+              SelectProps={{
+                MenuProps: {
+                  PaperProps: {
+                    style: {
+                      maxHeight: 200,
+                    },
+                  },
+                },
+              }}
+              onChange={(e) => setExistingSupplierDelete(e.target.value)}
+            >
+              {allSuppliers?.map((item) => (
+                <MenuItem key={item._id} value={item._id}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              "& button": { marginTop: 2, marginLeft: 2 },
+            }}
           >
-            Save
-          </Button>
-          <Button
-            color="secondary"
-            size="large"
-            variant="outlined"
-            onClick={() => {}}
-            sx={{ marginTop: 3, marginRight: 2 }}
-          >
-            Print
-          </Button>
-          <Button
-            color="error"
-            size="large"
-            variant="outlined"
-            onClick={() => {}}
-            sx={{ marginTop: 3 }}
-          >
-            Clear
-          </Button>
-        </Box>
+            <Button
+              color="primary"
+              size="large"
+              variant="outlined"
+              onClick={handleDeleteSupplier}
+            >
+              Delete
+            </Button>
+            <Button
+              color="warning"
+              size="large"
+              variant="outlined"
+              onClick={() => setExistingSupplierDelete("")}
+            >
+              Clear
+            </Button>
+          </Box>
+        </Grid>
       </Box>
     </form>
   );
