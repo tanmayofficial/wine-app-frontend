@@ -61,9 +61,47 @@ const SuppliersRegister = () => {
       ...prevState,
       [name]: value,
     }));
+
+    // Validate mobile number
+    if (name === "mobileNo") {
+      const mobileNoRegex = /^[0-9]{10}$/;
+      if (!mobileNoRegex.test(value)) {
+        NotificationManager.warning(
+          "Mobile number must be 10 digits.",
+          "Validation Error"
+        );
+      }
+    }
+
+    // Validate PAN number
+    if (name === "panNo") {
+      const panNoRegex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+      if (!panNoRegex.test(value)) {
+        NotificationManager.warning(
+          "Invalid PAN number format.",
+          "Validation Error"
+        );
+      }
+    }
   };
 
   const handleCreateSupplier = async () => {
+    if (
+      !formData.supName ||
+      !formData.address ||
+      !formData.mobileNo ||
+      !formData.gstinNo ||
+      !formData.panNo ||
+      !formData.cinNo ||
+      !formData.openingBalance
+    ) {
+      NotificationManager.warning(
+        "All fields are mandatory.",
+        "Validation Error"
+      );
+      return;
+    }
+
     const payload = {
       name: formData.supName,
       address: formData.address,
@@ -139,7 +177,6 @@ const SuppliersRegister = () => {
       );
     }
   };
-  
 
   const handleDeleteSupplier = async () => {
     try {
@@ -417,7 +454,10 @@ const SuppliersRegister = () => {
                   value={newFormData.openingBalance}
                   variant="outlined"
                   onChange={(e) =>
-                    setNewFormData({ ...newFormData, openingBalance: e.target.value })
+                    setNewFormData({
+                      ...newFormData,
+                      openingBalance: e.target.value,
+                    })
                   }
                 />
               </Grid>
@@ -444,7 +484,6 @@ const SuppliersRegister = () => {
               variant="outlined"
               onClick={() => {
                 setExistingSupplierUpdate("");
-                
               }}
             >
               Clear
