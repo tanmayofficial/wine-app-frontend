@@ -22,36 +22,42 @@ const SuppliersRegister = () => {
   const [formData, setFormData] = useState({
     supName: "",
     address: "",
-    mobileNo: "",
+    contactNo: "",
     gstinNo: "",
     panNo: "",
     cinNo: "",
-    openingBalance: "",
+    openingBlance: "",
   });
 
   const [newFormData, setNewFormData] = useState({
     supName: "",
     address: "",
-    mobileNo: "",
+    contactNo: "",
     gstinNo: "",
     panNo: "",
     cinNo: "",
-    openingBalance: "",
+    openingBlance: "",
   });
 
   const [allSuppliers, setAllSuppliers] = useState([]);
   const [existingSupplierUpdate, setExistingSupplierUpdate] = useState("");
   const [existingSupplierDelete, setExistingSupplierDelete] = useState("");
 
+  console.log("newFormData: ", newFormData);
+  
+  useEffect(() => {
+    fetchAllSuppliers();
+  }, []);
+
   const clearForm = () => {
     setFormData({
       supName: "",
       address: "",
-      mobileNo: "",
+      contactNo: "",
       gstinNo: "",
       panNo: "",
       cinNo: "",
-      openingBalance: "",
+      openingBlance: "",
     });
   };
 
@@ -61,39 +67,27 @@ const SuppliersRegister = () => {
       ...prevState,
       [name]: value,
     }));
+  };
 
-    // Validate mobile number
-    if (name === "mobileNo") {
-      const mobileNoRegex = /^[0-9]{10}$/;
-      if (!mobileNoRegex.test(value)) {
-        NotificationManager.warning(
-          "Mobile number must be 10 digits.",
-          "Validation Error"
-        );
-      }
-    }
+  const validatePanNo = (panNo) => {
+    const panNoRegex = /[A-Z]{5}[0-9]{4}[A-Z]{1}/;
+    return panNoRegex.test(panNo);
+  };
 
-    // Validate PAN number
-    if (name === "panNo") {
-      const panNoRegex = /[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-      if (!panNoRegex.test(value)) {
-        NotificationManager.warning(
-          "Invalid PAN number format.",
-          "Validation Error"
-        );
-      }
-    }
+  const validateGstinNo = (gstinNo) => {
+    const gstinNoRegex = /^\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}$/;
+    return gstinNoRegex.test(gstinNo);
   };
 
   const handleCreateSupplier = async () => {
     if (
       !formData.supName ||
       !formData.address ||
-      !formData.mobileNo ||
+      !formData.contactNo ||
       !formData.gstinNo ||
       !formData.panNo ||
       !formData.cinNo ||
-      !formData.openingBalance
+      !formData.openingBlance
     ) {
       NotificationManager.warning(
         "All fields are mandatory.",
@@ -102,14 +96,29 @@ const SuppliersRegister = () => {
       return;
     }
 
+    if ((formData.contactNo).length < 10) {
+      NotificationManager.warning("Invalid Mobile Number.", "Validation Error");
+      return;
+    }
+
+    if (!validatePanNo(formData.panNo)) {
+      NotificationManager.warning("Invalid PAN Number.", "Validation Error");
+      return;
+    }
+
+    if (!validateGstinNo(formData.gstinNo)) {
+      NotificationManager.warning("Invalid GSTIN Number.", "Validation Error");
+      return;
+    }
+
     const payload = {
       name: formData.supName,
       address: formData.address,
-      contactNo: formData.mobileNo,
+      contactNo: formData.contactNo,
       gstinNo: formData.gstinNo,
       panNo: formData.panNo,
       cinNo: formData.cinNo,
-      openingBlance: formData.openingBalance,
+      openingBlance: formData.openingBlance,
     };
 
     try {
@@ -147,11 +156,11 @@ const SuppliersRegister = () => {
     const payload = {
       name: newFormData.supName,
       address: newFormData.address,
-      contactNo: newFormData.mobileNo,
+      contactNo: newFormData.contactNo,
       gstinNo: newFormData.gstinNo,
       panNo: newFormData.panNo,
       cinNo: newFormData.cinNo,
-      openingBlance: newFormData.openingBalance,
+      openingBlance: newFormData.openingBlance,
     };
 
     try {
@@ -215,10 +224,6 @@ const SuppliersRegister = () => {
     }
   };
 
-  useEffect(() => {
-    fetchAllSuppliers();
-  }, []);
-
   return (
     <form>
       <Box sx={{ p: 2, width: "900px" }}>
@@ -255,12 +260,13 @@ const SuppliersRegister = () => {
           </Grid>
           <Grid item xs={3}>
             <TextField
-              name="mobileNo"
+              type="number"
+              name="contactNo"
               label="Mobile Number"
               variant="outlined"
               fullWidth
               className="form-field"
-              value={formData.mobileNo}
+              value={formData.contactNo}
               onChange={handleSupplierChange}
             />
           </Grid>
@@ -299,12 +305,13 @@ const SuppliersRegister = () => {
           </Grid>
           <Grid item xs={3}>
             <TextField
-              name="openingBalance"
+              type="number"
+              name="openingBlance"
               label="Opening Balance"
               variant="outlined"
               fullWidth
               className="form-field"
-              value={formData.openingBalance}
+              value={formData.openingBlance}
               onChange={handleSupplierChange}
             />
           </Grid>
@@ -355,7 +362,13 @@ const SuppliersRegister = () => {
                   },
                 },
               }}
-              onChange={(e) => setExistingSupplierUpdate(e.target.value)}
+              onChange={(e) => {
+                setExistingSupplierUpdate(e.target.value);
+                const selectedSupplier = allSuppliers.find(
+                  (supplier) => supplier._id === e.target.value
+                );
+                setNewFormData(selectedSupplier);
+              }}
             >
               {allSuppliers?.map((item) => (
                 <MenuItem key={item._id} value={item._id}>
@@ -396,13 +409,16 @@ const SuppliersRegister = () => {
               <Grid item xs={3}>
                 <TextField
                   fullWidth
-                  type="text"
-                  name="mobileNo"
+                  type="number"
+                  name="contactNo"
                   label="Mobile Number"
-                  value={newFormData.mobileNo}
+                  value={newFormData.contactNo}
                   variant="outlined"
                   onChange={(e) =>
-                    setNewFormData({ ...newFormData, mobileNo: e.target.value })
+                    setNewFormData({
+                      ...newFormData,
+                      contactNo: e.target.value,
+                    })
                   }
                 />
               </Grid>
@@ -448,48 +464,49 @@ const SuppliersRegister = () => {
               <Grid item xs={3}>
                 <TextField
                   fullWidth
-                  type="text"
-                  name="openingBalance"
+                  type="number"
+                  name="openingBlance"
                   label="Opening Balance"
-                  value={newFormData.openingBalance}
+                  value={newFormData.openingBlance}
                   variant="outlined"
                   onChange={(e) =>
                     setNewFormData({
                       ...newFormData,
-                      openingBalance: e.target.value,
+                      openingBlance: e.target.value,
                     })
                   }
                 />
               </Grid>
             </>
           )}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-end",
-              "& button": { marginTop: 2, marginLeft: 2 },
+        </Grid>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            "& button": { marginTop: 2, marginLeft: 2 },
+          }}
+        >
+          <Button
+            color="primary"
+            size="large"
+            variant="outlined"
+            onClick={handleUpdateSupplier}
+          >
+            Change
+          </Button>
+          <Button
+            color="warning"
+            size="large"
+            variant="outlined"
+            onClick={() => {
+              setExistingSupplierUpdate("");
             }}
           >
-            <Button
-              color="primary"
-              size="large"
-              variant="outlined"
-              onClick={handleUpdateSupplier}
-            >
-              Change
-            </Button>
-            <Button
-              color="warning"
-              size="large"
-              variant="outlined"
-              onClick={() => {
-                setExistingSupplierUpdate("");
-              }}
-            >
-              Clear
-            </Button>
-          </Box>
-        </Grid>
+            Clear
+          </Button>
+        </Box>
 
         <Typography variant="subtitle1" gutterBottom sx={{ marginTop: 2 }}>
           Delete Supplier
