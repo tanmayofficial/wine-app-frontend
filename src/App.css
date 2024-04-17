@@ -96,6 +96,22 @@ body {
   margin-left: 16px !important;
 }
 
+.css-rqglhn-MuiTable-root {
+  background-color: #daedf19e;
+}
+
+/* .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root {
+  background-color: #fdfbc8 !important;
+} */
+
+/* .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+  background-color: #fdfbc8 !important;
+} */
+
+/* .css-9npbnl-MuiFormLabel-root-MuiInputLabel-root {
+  color: #000 !important;
+} */
+
 .col-md-3 {
   flex: 0 0 15%;
   max-width: 15%;
@@ -104,6 +120,7 @@ body {
 .col-md-9 {
   flex: 0 0 85%;
   max-width: 85%;
+  background-color: #d5d8df;
 }
 
 .col-md-12 {
@@ -111,9 +128,133 @@ body {
   max-width: 100%;
 }
 
+.sidebar {
+  background-image: linear-gradient(#6a11cb 0%, #3b25fc 100%);
+  width: 260px;
+  font-size: 14px;
+}
+
+.sidebar-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-item {
+  color: #fff;
+  padding: 14px;
+}
+
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.sidebar-item .nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
 .home-container {
   margin-top: 20px;
   text-align: center;
+}
+
+.not-found-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 10rem auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.not-found-heading {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.not-found-message {
+  font-size: 18px;
+}
+
+.not-found-message a {
+  font-weight: 500;
+  color: #000;
+}
+
+.not-found-message a:hover {
+  text-decoration: none;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.input-wrapper .input-label {
+  margin-right: 8px;
+  flex: 0 0 30%; 
+  font-size: 14px !important;
+  text-wrap: balance;
+}
+
+.input-label{
+  color: #000 !important;
+}
+
+.input-label-2 {
+  margin-bottom: 8px;
+  font-size: 13px !important;
+  color: #000 !important;
+}
+
+.input-wrapper .input-field {
+  flex: 1;
+  background: #fdfbc8;
+  border-radius: 4px;
+}
+
+.input-field {
+  background: #fdfbc8 !important;
+  border-radius: 4px !important;
+}
+
+.input-wrapper .label-adjustment {
+  flex: 0 0 40% !important;
+}
+
+.input-wrapper .field-adjustment {
+  flex: 0 0 60% !important;
+}
+
+.input-wrapper .supplier-adjustment{
+  flex: 0 0 20% !important;
+}
+
+.input-wrapper .store-adjustment{
+  flex: 0 0 41% !important;
+}
+
+.input-wrapper .entryno-adjustment{
+  flex: 0 0 30% !important;
+  margin-left: 20px;
+}
+
+.table-header {
+  background-color: #91cbff;
+}
+
+.table-head {
+  background-color: #d5d8df;
 }
 
 @media (max-width: 768px) {
